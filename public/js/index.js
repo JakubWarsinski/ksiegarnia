@@ -42,7 +42,3 @@ document.addEventListener('DOMContentLoaded', () => {
       updateDisplay();
     });
 });
-
-$(window).resize(function() {
-  updateDisplay();
-});

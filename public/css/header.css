@@ -89,3 +89,51 @@ header ul svg {
     width: auto;
     height: 30px;
 }
+
+@media (max-width: 1000px) {
+    header {
+        padding: 1rem 10rem;
+        display: block;
+        align-items: center;
+        text-align: center;
+    }
+
+    header img {
+        margin: 0 0 2rem 0;
+    }
+
+    .search-bar {
+        align-items: center;
+        width: 100%;
+        margin: 0 0 2.2rem 0;
+    }
+
+    header ul {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 800px) {
+    header {
+        padding: 1rem 7rem;
+    }
+}
+
+@media (max-width: 800px) {
+    header {
+        padding: 1rem 5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    header {
+        padding: 1rem 3rem;
+    }
+}
+
+@media (max-width: 320px) {
+    header {
+        padding: 1rem 1rem;
+    }
+}
