@@ -42,3 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
       updateDisplay();
     });
 });
+
+const button = document.getElementById("menu-button");
+
+button.addEventListener('click', () => {
+  const list = document.getElementsByClassName("hide-button");
+  const amount = list.length - 1;
+
+  let i = 0;
+
+  for (i; i <= amount; i++) {
+    const item = list[i];
+
+    
+  }
+  
+});
