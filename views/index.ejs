@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+      <title>Strona główna</title>
+
+      <link rel="stylesheet" href="/css/index.css" />
+      <link rel="stylesheet" href="/css/footer.css" />
+      <link rel="stylesheet" href="/css/header.css" />
+      <link rel="icon" type="image/x-icon" href="/images/logo/icon.png" />
+
+      <meta charset="UTF-8" />
+      <meta name="description" content="Projekt szkolny" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <script src="/js/index.js" defer></script>
+  </head>
+  <body> 
+      <%- include('partials/header') %> 
+
+      <main>
+          <%- include('partials/book_section', {
+              title: 'Hity miesiąca',
+              id: 'popular',
+              books: popularBooks
+            }) %>
+
+          <%- include('partials/book_section', {
+              title: 'Bestsellery',
+              id: 'bestsellers',
+              books: bestsellersBooks
+            }) %>
+
+            <%- include('partials/book_section', {
+              title: 'Ostatnia szansa',
+              id: 'last_chance',
+              books: lastChanceBooks
+            }) %>
+      </main>
+
+      <%- include('partials/footer') %>   
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<section class="book-section" data-id="<%= id %>">
+  <h1><%= title %></h1>
+
+  <div class="book-grid" id="<%= id %>-grid">
+    <% books.forEach((book, index) => { %>
+      <article class="book-card" data-index="<%= index %>">
+        <div>
+          <%- include('book_short', { book }) %>
+        </div>
+        <button>DODAJ DO KOSZYKA</button>
+      </article>
+    <% }) %>
+  </div>
+
+  <div class="pagination">
+    <button id="<%= id %>-prev" class="pagination-btn">‹</button>
+    <button id="<%= id %>-next" class="pagination-btn">›</button>
+  </div>
+</section>

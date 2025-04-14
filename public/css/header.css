@@ -1,0 +1,91 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    vertical-align: middle;
+}
+ 
+header img {
+    width: auto;
+    max-height: 50px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+header img:hover {
+    transform: scale(1.1);
+}
+
+.search-bar {
+    width: 35%;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.search-bar input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border 0.2s ease;
+    outline: none;
+}
+
+.search-bar input:focus {
+border: 1px solid #ff0457ff;
+}
+
+.search-bar button {
+    padding: 0.2rem 0.5rem;
+    background-color: #2c252bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease-in-out;
+}
+
+.search-bar button:hover {
+    transform: scale(1.1);
+    background-color: #ff0457ff;
+}
+
+.search-bar button svg {
+    width: auto;
+    max-height: 25px;
+}
+
+header ul {
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    gap: 2.6rem;
+    cursor: pointer;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+header ul li {
+    color: #2c252bff;
+    transition: color 0.2s ease, transform 0.2s ease-in-out;
+}
+
+header ul li:hover {
+    transform: scale(1.1);
+    color: #ff0457ff;
+}
+
+header ul svg {
+    width: auto;
+    height: 30px;
+}
