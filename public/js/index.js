@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let pageSize = 5;
 
-      if (window.innerWidth <= 500) pageSize = 1;
+      if (window.innerWidth <= 540) pageSize = 1;
       else if (window.innerWidth <= 800) pageSize = 2;
-      else if (window.innerWidth <= 1000) pageSize = 3;
+      else if (window.innerWidth <= 1040) pageSize = 3;
       else if (window.innerWidth <= 1200) pageSize = 4;
       else pageSize = 5;
 
@@ -41,4 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       updateDisplay();
     });
+});
+
+$(window).resize(function() {
+  updateDisplay();
 });
