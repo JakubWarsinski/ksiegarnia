@@ -36,5 +36,5 @@ app.get('/', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Aplikacja działa na http://localhost:${port}`);
+    console.log(`Strona http://localhost:${port}`);
 });
