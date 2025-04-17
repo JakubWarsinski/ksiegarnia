@@ -7,13 +7,14 @@
         <div>
           <%- include('book_short', { book }) %>
         </div>
+        
         <button>DODAJ DO KOSZYKA</button>
       </article>
     <% }) %>
   </div>
 
-  <div class="pagination">
-    <button id="<%= id %>-prev" class="pagination-btn">‹</button>
-    <button id="<%= id %>-next" class="pagination-btn">›</button>
+  <div class="section-button">
+    <button id="<%= id %>-prev" class="section-button-btn">‹</button>
+    <button id="<%= id %>-next" class="section-button-btn">›</button>
   </div>
 </section>
