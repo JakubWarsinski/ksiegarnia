@@ -1,0 +1,31 @@
+<p><%= book.tytul %></p>
+
+<img src="/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" width="200" height="auto">
+
+<p>Autor: <%= book.imie %> <%= book.nazwisko %></p>
+
+<p>Opis: <%= book.opis %></p>
+
+<p>Gatunki: </p>
+<ul>
+    <% const genres = book.gatunki; %>
+        
+    <% genres.forEach(function(genre) { %>
+        <li><%= genre %></li>
+    <% }); %>
+</ul>
+
+<p>Ilość stron: <%= book.ilosc_stron %></p>
+<p>Ilość na stanie: <%= book.ilosc_na_stanie %></p>
+
+<p>Cena: </p>
+<% 
+    const price = book.cena;
+    const promotion = book.promocja;
+%>
+
+<% if (promotion) { %>
+    <p><s><%= price; %> zł</s> <%= parseInt(price) * (parseInt(promotion) / 100); %> zł</p>
+<% } else { %>
+    <p><%= price; %> zł</p>
+<% } %>

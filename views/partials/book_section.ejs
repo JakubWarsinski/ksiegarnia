@@ -3,13 +3,11 @@
 
   <div class="book-grid" id="<%= id %>-grid">
     <% books.forEach((book, index) => { %>
-      <article class="book-card" data-index="<%= index %>">
-        <div>
+      <button class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
+        <article>
           <%- include('book_short', { book }) %>
-        </div>
-        
-        <button>DODAJ DO KOSZYKA</button>
-      </article>
+        </article>
+      </button>
     <% }) %>
   </div>
 

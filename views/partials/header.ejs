@@ -14,27 +14,31 @@
 
         <ul>
             <li>
-                <a href="#">
+                <a href="/cart">
                     <i class="fa-solid fa-basket-shopping"></i>
-    
                     <p>Koszyk</p>
                 </a>
             </li>
 
             <li>
-                <a href="#">
+                <a href="/favorites">
                     <i class="fa-solid fa-heart"></i>
-                    
                     <p>Ulubione</p>
                 </a>
             </li>
             
             <li>
-                <a href="#">
-                    <i class="fa-solid fa-user"></i>
-                    
-                    <p>Zaloguj</p>
-                </a>
+                <% if (user) { %>
+                    <a href="/user">
+                        <i class="fa-solid fa-user"></i>
+                        <p><%= user.login %></p>
+                    </a>
+                <% } else { %>
+                    <a href="/login">
+                        <i class="fa-solid fa-user"></i>
+                        <p>Zaloguj</p>
+                    </a>
+                <% } %>
             </li>
         </ul>
     </div>
@@ -49,7 +53,6 @@
         <li class="hide-button">
             <a href="#">
                 <i class="fa-solid fa-book"></i>
-                
                 <p>Gatunki</p>
             </a>
         </li>
@@ -57,7 +60,6 @@
         <li class="hide-button">
             <a href="#">
                 <i class="fa-solid fa-star"></i>
-                
                 <p>Autorzy</p>
             </a>
         </li>
@@ -65,7 +67,6 @@
         <li class="hide-button" >
             <a href="#">
                 <i class="fa-solid fa-tags"></i> 
-                
                 <p>W promocji</p>
             </a>
         </li>
@@ -73,7 +74,6 @@
         <li class="hide-button">
             <a href="#">
                 <i class="fa-solid fa-star"></i>
-                
                 <p>Nowości</p>
             </a>
         </li>

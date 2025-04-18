@@ -4,24 +4,26 @@
         <h3>O nas</h3>
 
         <ul>
-          <li><a href="/conditions" target="_blank">Warunki zakupów</a></li>
-          <li><a href="/help" target="_blank">Pomoc</a></li>
-          <li><a href="/contact" target="_blank">Kontakt</a></li>
+          <li><a href="/conditions">Warunki zakupów</a></li>
+          <li><a href="/help">Pomoc</a></li>
+          <li><a href="/contact">Kontakt</a></li>
         </ul>
       </section>
 
       <section>
         <h3>Newsletter</h3>
 
-        <div class="footer-input">
-          <input type="email" placeholder="Twój adres e-mail" />
-          <button>Zapisz się</button>
-        </div>
-
-        <label>
-          <input type="checkbox" required />
-          <span>Zgadzam się na otrzymywanie informacji...</span>
-        </label>
+        <form id="newsletter-form" method="POST" action="/newsletter">
+          <div class="footer-input">
+            <input type="email" name="email" placeholder="Twój adres e-mail" required />
+            <button type="submit">Zapisz się</button>
+          </div>
+        
+          <label>
+            <input type="checkbox" name="consent" required />
+            <span>Zgadzam się na otrzymywanie informacji...</span>
+          </label>
+        </form>
       </section>
       
       <section>

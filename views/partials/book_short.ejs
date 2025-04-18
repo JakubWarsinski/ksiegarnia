@@ -1,13 +1,23 @@
-<h4 title="<%= book.tytul %>">
-    <%= book.tytul.length > 18 ? book.tytul.slice(0, 15) + '...' : book.tytul %>
-</h4>
+<div class="book-title">
+    <h4 title="<%= book.tytul %>">
+        <%= book.tytul.length > 18 ? book.tytul.slice(0, 15) + '...' : book.tytul %>
+    </h4>
+    <i class="fa-solid fa-basket-shopping"></i>
+</div>
 
 <img src='images/books/<%= book.okladka %>' alt='<%= book.okladka %>'>
 
 <ul>
     <li><strong>Autor:</strong> <%= book.imie %> <%= book.nazwisko %></li>
-    <li><strong>Gatunek:</strong> <%= book.gatunek %></li>
-    <li><strong>Ilość stron:</strong> <%= book.ilosc_stron %></li>
-    <li><strong>Cena:</strong> <%= book.cena %> zł</li>
-    <li><strong>Na stanie:</strong> <%= book.ilosc_na_stanie %></li>
+    <li><strong>Gatunki:</strong><br>
+        <% 
+            const pokazGatunki = book.gatunki.length > 2 
+                ? book.gatunki.slice(0, 2) 
+                : book.gatunki;
+        %>
+        <% pokazGatunki.forEach(function(gat) { %>
+            <span class="gatunek-tag <%= gat.toLowerCase().replace(/\s/g, '-') %>"><%= gat %></span><br>
+        <% }); %>
+    </li>
+    <li class="book-price"><strong>Cena:</strong> <%= book.cena %> zł</li>
 </ul>

@@ -1,0 +1,17 @@
+<p>Zaloguj się</p>
+
+<% if (error) { %>
+    <p><%= error %></p>
+<% } %>
+
+<form action="/login" method="POST">
+    <label for="login">Login</label>
+    <input type="text" id="login" name="login" required>
+
+    <label for="haslo">Hasło</label>
+    <input type="password" id="haslo" name="haslo" required>
+
+    <button type="submit">Zaloguj</button>
+</form>
+
+<p>Nie masz jeszcze konta? <a href="/register">Zarejestruj</a> się</p>

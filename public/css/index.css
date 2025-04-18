@@ -1,13 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    color: inherit;
-    font-family: "Lato", sans-serif;
-}
-
 .book-section {
     color: #2c252bff;
     padding: 2rem;
@@ -27,18 +17,26 @@
     justify-items: center;
     gap: 2rem;
 }
-  
+
+.book-card {
+    width: 100%;
+    max-width: 250px;
+    max-height: 514px;
+    display: none;
+    background-color: transparent;
+    border: none;
+}
+
 .book-grid article {
     opacity: 70%;
     background-color: #fff;
     padding: 0.6rem;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: none;
     flex-direction: column;
     align-items: center;
-    max-width: 250px;
     width: 100%;
+    max-width: 250px;
     max-height: 514px;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
@@ -47,11 +45,32 @@
     transform: translateY(-5px);
     opacity: 100%;
 }
-  
+
+.book-title {
+    display: grid;
+    grid-template-columns: auto 30px;
+    vertical-align: middle;
+}
+
+.book-title i {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #ff0457ff;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.1s ease;
+}
+
+.book-title i:hover {
+    transform: scale(1.1);
+    color: rgb(189, 0, 107);
+}
+
+
 .book-grid article h4 {
     font-size: 1.1rem;
     margin: 0 0 0.8rem 0;
-    text-align: center;
+    text-align: left;
 }
 
 .book-grid article img {
@@ -69,21 +88,12 @@
 
 .book-grid article li {
     padding: 0.3rem;
+    text-align: center;
+    align-items: center;
 }
 
-.book-grid article button {
-    margin-top: auto;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #ff0457ff;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.book-grid article button:hover {
-    background-color: #b00081ff;
+.book-price {
+    font-size: 1.1rem;
 }
 
 .section-button {
@@ -110,3 +120,32 @@
     background-color: rgb(103, 84, 99);
     transform: scale(1.1);
 }
+
+.gatunek-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    margin: 5px 0 5px 0;
+    border-radius: 16px;
+    font-size: 0.85em;
+    font-weight: 500;
+    color: white;
+}
+
+.gatunek-tag.fantastyka          { background-color: #673ab7; } /* fioletowy */
+.gatunek-tag.kryminał            { background-color: #d32f2f; } /* czerwony */
+.gatunek-tag.romans              { background-color: #e91e63; } /* różowy */
+.gatunek-tag.historia            { background-color: #6d4c41; } /* brązowy */
+.gatunek-tag.nauka               { background-color: #0288d1; } /* niebieski */
+.gatunek-tag.biografia           { background-color: #388e3c; } /* zielony */
+.gatunek-tag.dramat              { background-color: #7b1fa2; } /* purpura */
+.gatunek-tag.powieść-obyczajowa { background-color: #f57c00; } /* pomarańczowy */
+.gatunek-tag.psychologia         { background-color: #009688; } /* turkusowy */
+.gatunek-tag.ekonomia            { background-color: #c2185b; } /* ciemny róż */
+.gatunek-tag.podróże            { background-color: #00796b; } /* morski */
+.gatunek-tag.obyczajowa          { background-color: #ff8f00; } /* bursztynowy */
+.gatunek-tag.wspomnienia         { background-color: #5d4037; } /* brąz */
+.gatunek-tag.thriller            { background-color: #c62828; } /* ciemnoczerwony */
+.gatunek-tag.przygodowa          { background-color: #0288d1; } /* niebieski */
+.gatunek-tag.misterium           { background-color: #512da8; } /* fioletowy */
+.gatunek-tag.przyroda            { background-color: #689f38; } /* oliwkowy */
+.gatunek-tag.science-fiction     { background-color: #00bcd4; } /* jasny niebieski */
