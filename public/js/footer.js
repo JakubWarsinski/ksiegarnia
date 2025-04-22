@@ -1,0 +1,22 @@
+document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('newsletter-email').value;
+    const messageElem = document.getElementById('newsletter-message');
+
+    try {
+        const res = await fetch('footer/newsletter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const result = await res.json();
+        messageElem.textContent = result.message;
+        
+    } catch (err) {
+        messageElem.textContent = 'Wystąpił problem z połączeniem.';
+    }
+});

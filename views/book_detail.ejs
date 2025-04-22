@@ -1,3 +1,5 @@
+<script src="/js/book.js" defer></script>
+
 <p><%= book.tytul %></p>
 
 <img src="/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" width="200" height="auto">
@@ -8,7 +10,7 @@
 
 <p>Gatunki: </p>
 <ul>
-    <% const genres = book.gatunki; %>
+    <% const genres = book.gatunki.split(','); %>
         
     <% genres.forEach(function(genre) { %>
         <li><%= genre %></li>
@@ -18,14 +20,36 @@
 <p>Ilość stron: <%= book.ilosc_stron %></p>
 <p>Ilość na stanie: <%= book.ilosc_na_stanie %></p>
 
-<p>Cena: </p>
+<p>Cena:
 <% 
     const price = book.cena;
     const promotion = book.promocja;
 %>
 
 <% if (promotion) { %>
-    <p><s><%= price; %> zł</s> <%= parseInt(price) * (parseInt(promotion) / 100); %> zł</p>
+    <s><%= price; %> zł</s> <%= (parseInt(price) * (parseInt(promotion) / 100)).toFixed(2); %> zł
 <% } else { %>
-    <p><%= price; %> zł</p>
+    <%= price; %> zł
 <% } %>
+</p>
+
+<button onclick="AddBookToFavorites('<%= book.id_ksiazki %>')">Dodaj do ulubionych</button>
+
+<a href="/user/cart">Dodaj do koszyka</a>
+
+<a href="/">Wróć na stronę główną</a>
+
+<p>Lista książek o tym podobnym gatunku:</p>
+<ul>
+    <% 
+        const books = similarBooks;
+        books.forEach(function(book) {
+    %>
+        <li>
+            <button data-id="<%= book.id_ksiazki %>" onclick="GoToBookPage(this)">
+            <p><%= book.tytul %></p>
+            <img src="/images/books/<%= book.okladka %>" width="auto" height="100px">
+            </button>
+        </li>
+    <%});%>
+</ul>

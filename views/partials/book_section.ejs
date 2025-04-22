@@ -3,7 +3,7 @@
 
   <div class="book-grid" id="<%= id %>-grid">
     <% books.forEach((book, index) => { %>
-      <button class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
+      <button class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>" onclick="GoToBookPage(this)">
         <article>
           <%- include('book_short', { book }) %>
         </article>

@@ -131,6 +131,16 @@
     color: white;
 }
 
+.promotion-text {
+    color: red;
+    font-size: 1rem;
+    text-decoration: line-through;
+}
+
+.promotion-new-text {
+    color: green;
+}
+
 .gatunek-tag.fantastyka          { background-color: #673ab7; } /* fioletowy */
 .gatunek-tag.kryminał            { background-color: #d32f2f; } /* czerwony */
 .gatunek-tag.romans              { background-color: #e91e63; } /* różowy */

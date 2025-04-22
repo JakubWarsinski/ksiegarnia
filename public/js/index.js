@@ -107,10 +107,3 @@ function headerDisplay() {
     isToggling = false;
   }, 100);
 }
-
-document.querySelectorAll('.book-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const bookId = card.getAttribute('data-id');
-    window.location.href = `/book/${bookId}`;
-  });
-});

@@ -9,15 +9,29 @@
 
 <ul>
     <li><strong>Autor:</strong> <%= book.imie %> <%= book.nazwisko %></li>
+    
     <li><strong>Gatunki:</strong><br>
         <% 
-            const pokazGatunki = book.gatunki.length > 2 
-                ? book.gatunki.slice(0, 2) 
-                : book.gatunki;
+            const genres = book.gatunki.split(',').slice(0, 2);
+
+            genres.forEach(function(genre) { 
         %>
-        <% pokazGatunki.forEach(function(gat) { %>
-            <span class="gatunek-tag <%= gat.toLowerCase().replace(/\s/g, '-') %>"><%= gat %></span><br>
+            <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span><br>
         <% }); %>
+        
     </li>
-    <li class="book-price"><strong>Cena:</strong> <%= book.cena %> zł</li>
+
+    <li class="book-price">
+        <strong>Cena: </strong>
+        <% 
+            const price = book.cena;
+            const promotion = book.promocja;
+        %>
+
+        <% if (promotion) { %>
+            <s class="promotion-text"><%= price; %> zł</s> <s class="promotion-new-text"><%= (parseInt(price) * (parseInt(promotion) / 100)).toFixed(2); %> zł</s>
+        <% } else { %>
+            <%= price; %> zł
+        <% } %>
+    </li>
 </ul>

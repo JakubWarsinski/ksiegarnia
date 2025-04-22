@@ -4,7 +4,7 @@
     <p><%= error %></p>
 <% } %>
 
-<form action="/login" method="POST">
+<form action="/user" method="POST">
     <label for="login">Login</label>
     <input type="text" id="login" name="login" required>
 
@@ -14,4 +14,4 @@
     <button type="submit">Zaloguj</button>
 </form>
 
-<p>Nie masz jeszcze konta? <a href="/register">Zarejestruj</a> się</p>
+<p>Nie masz jeszcze konta? <a href="/user/new">Zarejestruj</a> się</p>
