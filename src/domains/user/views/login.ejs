@@ -1,0 +1,33 @@
+<%- include('../../structure/views/head', { 
+    title : "Logowanie",
+    styles : ['/user/css/login.css'],
+    scripts : []
+}); %>
+  
+<body>
+    <main>
+        <p>Zaloguj się</p>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <form action="/user" method="POST">
+            <label for="email">E-mail*</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="password">Hasło*</label>
+            <input type="password" id="password" name="haslo" required>
+
+            <button type="submit">Zaloguj</button>
+        </form>
+
+        <p>Nie masz jeszcze konta? <a href="/user/new">Zarejestruj</a> się</p>
+
+        <p>Zapomniałeś hasła? <a href="/user/forgot">zresetuje</a> je</p>
+    </main>
+
+    <%- include('../../footer/views/footer') %>   
+</body>
+
+</html>

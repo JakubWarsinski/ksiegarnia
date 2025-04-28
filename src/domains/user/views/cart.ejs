@@ -1,0 +1,35 @@
+<%- include('../../structure/views/head', { 
+    title : "Koszyk",
+    styles : ['/user/css/cart.css', '/header/css/header.css'],
+    scripts : ['/header/js/header.js']
+}); %>
+
+<body>
+    <%- include('../../header/views/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% }%>
+
+        <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
+            <ul>
+                <% books.forEach(function(book) {%>
+                    <li>
+                        <a href="/book/<%= book.id_ksiazki %>">
+                            <p><%= book.tytul %></p>
+                            <img src="/books/images/books/<%= book.okladka %>" width="auto" height="100px">
+                        </a>
+                    </li>
+                <%});%>
+
+                <p><a href='/user/pay'>Złóż zamówienie</a></p>
+            </ul>
+        <% } else { %>
+            <p>Brak książek w koszyku</p>    
+        <% } %>
+    </main>
+
+    <%- include('../../footer/views/footer') %>   
+</body>
+</html>

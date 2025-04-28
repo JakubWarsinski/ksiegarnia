@@ -1,0 +1,20 @@
+<section class="book-section" data-id="<%= id %>">
+    <h1><%= title %></h1>
+  
+    <div class="book-grid" id="<%= id %>-grid">
+      <% if (Array.isArray(books) && books.length > 0) { %>
+        <% books.forEach((book, index) => { %>
+          <article class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
+            <%- include('book_short', { book }) %>
+            <div>
+              <a href="/home/book/<%= book.id_ksiazki %>">SPRAWDŹ</a>
+            </div>
+          </article>
+        <% })} %>
+    </div>
+  
+    <div class="section-button">
+      <button id="<%= id %>-prev" class="section-button-btn">‹</button>
+      <button id="<%= id %>-next" class="section-button-btn">›</button>
+    </div>
+</section>

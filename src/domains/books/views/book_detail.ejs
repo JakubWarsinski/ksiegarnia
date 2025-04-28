@@ -1,0 +1,78 @@
+<%- include('../../structure/views/head', { 
+    title : "Książka",
+    styles : ['/books/css/book_detail.css', '/header/css/header.css', '/books/css/genres.css', '/books/css/promotion.css'],
+    scripts : ['/header/js/header.js']
+}); %>
+
+<body>
+    <%- include('../../header/views/header', { user: user || null }) %>
+
+    <% 
+        let author = null;
+        let price = null;
+        let promotion = null;
+        let discountedPrice = null;
+
+        if (typeof book !== 'undefined' && book) {
+            author = `${book.autor.imie} ${book.autor.nazwisko}`;
+            price = book.cena;
+            promotion = book.promocja;
+            discountedPrice = promotion ? (price * (promotion / 100)).toFixed(2) : null; 
+        }
+    %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <% if (typeof book !== 'undefined' && book) { %>
+            <p><%= book.tytul %></p>
+
+            <img src="/books/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" width="200" height="auto">
+
+            <p>Autor: <%= author %></p>
+
+            <p>Opis: <%= book.opis %></p>
+
+            <p>Gatunki: </p>
+            
+            <ul>                    
+                <% book.gatunki.forEach(function(genre) { %>
+                    <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span><br>
+                <% }); %>
+            </ul>
+
+            <p>Ilość stron: <%= book.ilosc_stron %></p>
+            <p>Ilość na stanie: <%= book.ilosc_na_stanie %></p>
+
+            <p>Cena: 
+                <% if (discountedPrice) { %>
+                    <s class="promotion-text"><%= price %> zł</s> 
+                    <span class="promotion-new-text"><%= discountedPrice %> zł</span>
+                <% } else { %>
+                    <%= price %> zł
+                <% } %>
+            </p>
+
+            <p>Lista książek o tym podobnym gatunku:</p>
+
+            <% if (typeof similarBooks !== 'undefined' && similarBooks && similarBooks.length > 0) { %>
+                <ul> 
+                    <% similarBooks.forEach(function(similarBook) { %>
+                        <li>
+                            <a href="/home/book/<%= similarBook.id_ksiazki %>">
+                                <p><strong><%= similarBook.tytul %></strong></p>
+                                <img src="/books/images/books/<%= similarBook.okladka %>" alt="<%= book.tytul %>" width="100" height="auto">
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            <%} else {%>
+                <p>Brak podobnych książek</p>
+            <%}%>
+        <% } %>
+    </main>
+
+    <%- include('../../footer/views/footer') %>
+</body>

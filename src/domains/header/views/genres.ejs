@@ -1,0 +1,27 @@
+<%- include('../../structure/views/head', { 
+    title : "Lista gatunków",
+    styles : ['/footer/css/conditions.css', '/header/css/header.css'],
+    scripts : ['/header/js/header.js']
+}); %>
+    
+<body>
+    <%- include('../../header/views/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <% if (typeof genres !== 'undefined' && genres) { %>
+            <ul>
+                <% genres.forEach(function(genre){ %>
+                    <li><a href="/home/?genre=<%= genre.id_gatunku %>"><%= genre.gatunek %></a></li>
+                <%})%>
+            </ul>
+        <% } %>
+    </main>
+
+    <%- include('../../footer/views/footer') %>    
+</body>
+
+</html>

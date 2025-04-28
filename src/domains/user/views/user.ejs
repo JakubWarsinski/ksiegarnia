@@ -1,0 +1,41 @@
+<%- include('../../structure/views/head', { 
+    title : 'Profil',
+    styles : ['/user/css/user.css'],
+    scripts : []
+}); %>
+
+<body>
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <p>Login : <%= userInfo.login %></p>
+
+        <p>E-mail : <%= userInfo.email %></p>
+
+        <p>Imię : <%= userInfo.imie %></p>
+
+        <p>Nazwisko : <%= userInfo.nazwisko %></p>
+
+        <p>NumerTelefonu : <%= userInfo.numer_telefonu %></p>
+
+        <a href="/user/cart">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <p>Koszyk</p>
+        </a>
+
+        <a href="/user/favorites">
+            <i class="fa-solid fa-heart"></i>
+            <p>Ulubione</p>
+        </a>
+
+        <p><a href="/home">Wróć na stronę główną</a></p>
+
+        <p><a href="/user/logout">Wyloguj</a></p>
+    </main>
+
+    <%- include('../../footer/views/footer') %>   
+</body>
+
+</html>

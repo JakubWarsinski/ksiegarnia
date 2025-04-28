@@ -1,0 +1,79 @@
+<header id="nav-header">
+    <div class="header-top">
+        <a href="/home" class="logo">
+            <img src="/structure/images/logo/logo.png" alt="MDK Księgarnia">
+        </a>
+
+        <div class="search-bar">
+            <input id="search-input" type="text" placeholder="Nazwa książki...">
+            
+            <button id="search-button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <ul>
+            <li>
+                <a href="/home">
+                    <i class="fa-solid fa-house"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+
+            <li>
+                <a href="/user/cart">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <% if (typeof user !== 'undefined' && user && user.cart > 0) { %>
+                        <span class="circle-count"><%= user.cart %></span>
+                    <% } %>
+                    <p>Koszyk</p>
+                </a>
+            </li>
+
+            <li>
+                <a href="/user/favorites">
+                    <i class="fa-solid fa-heart"></i>
+                    <% if (typeof user !== 'undefined' && user && user.favorites > 0) { %>
+                        <span class="circle-count"><%= user.favorites %></span>
+                    <% } %>
+                    <p>Ulubione</p>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/user">
+                    <i class="fa-solid fa-user"></i>
+                    <p>
+                        <% if (user) { %>
+                        <%= user.login %>
+                        <% }else{ %>
+                            Zaloguj
+                        <% } %>
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="header-bottom">
+        <li class="menu-button">
+            <button id="menu-button">
+                <i class="fa-solid fa-grip-lines"></i>
+            </button>
+        </li>
+
+        <li class="hide-button">
+            <a href="/home/genres">
+                <i class="fa-solid fa-book"></i>
+                <p>Gatunki</p>
+            </a>
+        </li>
+
+        <li class="hide-button">
+            <a href="/home/authors">
+                <i class="fa-solid fa-star"></i>
+                <p>Autorzy</p>
+            </a>
+        </li>
+    </ul>
+</header>

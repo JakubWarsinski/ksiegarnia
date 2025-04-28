@@ -1,0 +1,23 @@
+<%- include('../../structure/views/head', { 
+    title : "Odzyskiwanie hasła",
+    styles : ['/user/css/forgot.css'],
+    scripts : []
+}); %>
+
+<body>
+    <main>
+        <h2>Zresetuj Hasło?</h2>
+        
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <form action="/user/forgot" method="POST">
+            <input type="email" name="email" placeholder="Wpisz swój e-mail" required />
+            <button type="submit">Wyślij kod</button>
+        </form>
+    </main>
+    
+    <%- include('../../footer/views/footer') %>   
+</body>
+</html>

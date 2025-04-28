@@ -1,0 +1,56 @@
+<%- include('../../structure/views/head', { 
+    title : "Strona Główna",
+    styles : ['/home/css/index.css', '/header/css/header.css', '/books/css/genres.css', '/books/css/promotion.css'],
+    scripts : ['/home/js/index.js', '/header/js/header.js']
+}); %>
+
+<body>
+    <%- include('../../header/views/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <% 
+            const renderBookSection = (title, id, books) => {
+                if (books && books.length > 0) {
+                    return { title, id, books };
+                }
+                
+                return null;
+            };
+        %>
+
+        <%  if (typeof searchBooks !== 'undefined' && searchBooks) { %>
+                <% if (searchBooks.length > 0 ) { %>
+                    <% const searchSection = renderBookSection('WYSZUKIWANE', 'books', searchBooks); %>
+                    <%- include('../../books/views/book_section', searchSection) %> 
+                <% } else { %>
+                    <section class="book-section">
+                        <h1>Nie znaleziono wyniku</h1>
+                    </section>
+                <% } %>
+        <%  
+            } else { 
+                if (typeof topBooks !== 'undefined') {
+                    const topSection = renderBookSection('TOP 10', 'topBooks', topBooks);
+                    if (topSection) { %> <%- include('../../books/views/book_section', topSection) %> <% }
+                }
+
+                if (typeof promotionBooks !== 'undefined') {
+                    const promotionSection = renderBookSection('NA PROMOCJI', 'promotionBooks', promotionBooks);
+                    if (promotionSection) { %> <%- include('../../books/views/book_section', promotionSection) %> <% }
+                }
+
+                if (typeof lastBooks !== 'undefined') {
+                    const lastSection = renderBookSection('OSTATNIE NA SKŁĄDZIE', 'lastBooks', lastBooks);
+                    if (lastSection) { %> <%- include('../../books/views/book_section', lastSection) %> <% }
+                }
+            }
+        %>
+    </main>
+
+    <%- include('../../footer/views/footer') %>   
+</body>
+</html>

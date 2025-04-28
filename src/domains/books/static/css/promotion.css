@@ -1,0 +1,9 @@
+.promotion-text {
+    color: red;
+    font-size: 1rem;
+    text-decoration: line-through;
+}
+
+.promotion-new-text {
+    color: green;
+}

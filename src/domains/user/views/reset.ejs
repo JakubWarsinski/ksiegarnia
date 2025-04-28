@@ -1,0 +1,28 @@
+<%- include('../../structure/views/head', { 
+    title : "Resetuj hasło",
+    styles : ['/user/css/reset.css'],
+    scripts : ['/user/js/resetCode.js']
+}); %>
+
+<body>
+    <main>
+        <p>Twój kod resetujący to: <strong><%= code %></strong></p>
+        
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <form action="/user/reset" method="POST">
+            <label for="resetCode">Kod resetujący*</label>
+            <input type="text" name="resetCode" id="existing-code" pattern="[0-9]{6}" placeholder="_ _ _ _ _ _*" required size="6" />
+
+            <label for="new-password">Nowe hasło*</label>
+            <input type="password" name="newPassword" id="new-password" required />
+            
+            <button type="submit">Zmień hasło</button>
+        </form>
+    </main>
+
+    <%- include('../../footer/views/footer') %>   
+</body>
+</html>
