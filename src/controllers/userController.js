@@ -121,7 +121,56 @@ exports.handleResetPassword = async (req, res) => {
     }
 };
 
+exports.handleFavorites = async (req, res) => {
+    try {
+        const { id_ksiazki } = req.body;
 
+        const book = await userService.getUserBookById(id_ksiazki, req.session.user.id_klienta);
+
+        return res.status(200).json({ book });
+    } catch(error) {
+        return res.status(500).json({ error });
+    }
+    
+    const { id_ksiazki, id_klienta } = req.body;
+
+  try {
+    // Sprawdź, czy książka już istnieje dla tego klienta
+    const { data: istnieje, error: selectError } = await supabase
+      .from('ulubione_ksiazki')
+      .select('*')
+      .eq('id_ksiazki', id_ksiazki)
+      .eq('id_klienta', id_klienta)
+      .single();
+
+    if (selectError && selectError.code !== 'PGRST116') {
+      return res.status(500).json({ error: selectError.message });
+    }
+
+    if (istnieje) {
+      // Update: posiadane = true
+      const { error: updateError } = await supabase
+        .from('ulubione_ksiazki')
+        .update({ posiadane: true })
+        .eq('id_ksiazki', id_ksiazki)
+        .eq('id_klienta', id_klienta);
+
+      if (updateError) throw updateError;
+      return res.json({ message: 'Zaktualizowano książkę jako posiadaną.' });
+    } else {
+      // Insert nowego wpisu
+      const { error: insertError } = await supabase
+        .from('ulubione_ksiazki')
+        .insert([{ id_ksiazki, id_klienta, posiadane: true }]);
+
+      if (insertError) throw insertError;
+      return res.json({ message: 'Dodano książkę do ulubionych jako posiadaną.' });
+    }
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
 
 
 

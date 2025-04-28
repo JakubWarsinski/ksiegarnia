@@ -158,3 +158,25 @@ exports.GetGenres = async () => {
 
     return data;
 }
+
+exports.GetUserBookById = async (from, select, bookId) => {
+    const { data, error } = await supabase
+        .from(from)
+        .select(select + ', posiadane')
+        .eq(select, bookId)
+        .maybeSingle();
+
+    if (error) throw error.message;
+
+    return data;
+}
+
+exports.GetFavoriteBooks = async (from, select, userId) => {
+    const { data, error } = await supabase
+        .from('gatunki')
+        .select('id_gatunku, gatunek');
+
+    if (error) throw error.message;
+
+    return data;
+}

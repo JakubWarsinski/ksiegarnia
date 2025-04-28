@@ -1,10 +1,6 @@
 const bcrypt = require('bcrypt');
 const { GetUser, GetCount, SetUser, UpdateUserData } = require('../models/userModel');
-const { getDelivers } = require('../models/deliveryModel');
-const { createFacture } = require('../models/factureModel');
-const { createOrder, createOrderRelation } = require('../models/orderModel');
-const { getDataByFunction, getDataByParams, } = require("../utils/queryHelper");
-const { GenerateQueryWithParams, GenerateQuery, PostQueryWithParams, UpdateQueryWithParams } = require("../models/queryModel");
+const { GetUserBookById } = require('../models/bookModel');
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 exports.loginUser = async (email, password) => {
@@ -25,7 +21,7 @@ exports.loginUser = async (email, password) => {
 
         user.cart = await GetCount('koszyk', user.id_klienta);
         user.favorites = await GetCount('ulubione_ksiazki', user.id_klienta);
-
+ 
         return user;
     } catch (error) {
         throw error;
@@ -86,8 +82,15 @@ exports.resetPassword = async (inputBody, inputSession) => {
     }
 };
 
+exports.getUserBookById = async (id_ksiazki, id_klienta) => {
+    try {
+        const book = await GetUserBookById('ulubione_ksiazki', 'id_ksiazki', id_ksiazki);
 
-
+        return book;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
 

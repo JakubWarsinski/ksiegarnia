@@ -22,10 +22,12 @@ router.post('/reset', userController.handleResetPassword);
 
 router.get('/logout', isAuthenticated, userController.logoutUser);
 
-router.get('/pay', isAuthenticated, userController.showPayPage);
-router.post('/pay', isAuthenticated, userController.handlePay);
+//router.get('/pay', isAuthenticated, userController.showPayPage);
+//router.post('/pay', isAuthenticated, userController.handlePay);
 
 router.get('/cart', isAuthenticated, userController.showCartPage);
+
 router.get('/favorites', isAuthenticated, userController.showFavoritesPage);
+router.get('/favorites', isAuthenticated, userController.handleFavorites);
 
 module.exports = router;

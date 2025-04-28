@@ -8,6 +8,7 @@
             <%- include('book_short', { book }) %>
             <div>
               <a href="/home/book/<%= book.id_ksiazki %>">SPRAWDŹ</a>
+              <button onclick="addUsersBook('<%= book.id_ksiazki %>', '/user/favorites')">Ulubione</button>
             </div>
           </article>
         <% })} %>

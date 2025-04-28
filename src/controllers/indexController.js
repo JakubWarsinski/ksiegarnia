@@ -1,7 +1,5 @@
-const { getSearchedBooks } = require('../services/indexService');
-const { GetTopBooks, GetLastBooks, GetPromotionBooks, GetDetailedDadaBook, GetSimilarBooks } = require("../models/bookModel");
-const { GetGenres } = require('../models/genreModel');
-const { getAuthors } = require('../models/authorModel');
+const { getSearchedBooks, getUserBookById } = require('../services/indexService');
+const { GetTopBooks, GetLastBooks, GetPromotionBooks, GetDetailedDadaBook, GetSimilarBooks, getAuthors, GetGenres } = require("../models/bookModel");
 const { indexPaths } = require('../utils/indexPaths');
 
 exports.showHomePage = async (req, res) => {
@@ -57,3 +55,6 @@ exports.showBook = async (req, res) => {
         return res.render(indexPaths.book, { error });
     }
 };
+
+
+
