@@ -2,15 +2,20 @@
     <h1><%= title %></h1>
   
     <div class="book-grid" id="<%= id %>-grid">
-      <% if (Array.isArray(books) && books.length > 0) { %>
-        <% books.forEach((book, index) => { %>
-          <article class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
-            <%- include('book_short', { book }) %>
-            <div>
-              <a href="/home/book/<%= book.id_ksiazki %>">SPRAWDŹ</a>
-              <button onclick="addUsersBook('<%= book.id_ksiazki %>', '/user/favorites')">Ulubione</button>
-            </div>
-          </article>
+        <% if (Array.isArray(books) && books.length > 0) { %>
+            <% books.forEach((book, index) => { %>
+                <article class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
+                    <%- include('book_short', { book }) %>
+                    
+                    <div class="button-collection" <% if (typeof user !== 'undefined' && user) { %> style="display: flex; justify-content: space-between;" <%}%>>
+                        <a href="/home/book/<%= book.id_ksiazki %>" class="check-button">SPRAWDŹ</a>
+                        
+                        <% if (typeof user !== 'undefined' && user) { %>
+                            <button class="specialButton <% if (user.favIds.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" id="button-favorite<%=index%>" data-id="<%= book.id_ksiazki %>" data-path="ulubione_ksiazki" data-item="favorites" data-table="favIds" data-counter="user-fav-count"><i class="fa-solid fa-heart"></i></button>
+                            <button class="specialButton <% if (user.cartIds.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" id="button-cart<%=index%>" data-id="<%= book.id_ksiazki %>" data-path="koszyk" data-item="cart" data-table="cartIds" data-counter="user-cart-count"><i class="fa-solid fa-basket-shopping"></i></button>
+                        <% } %>
+                    </div>
+                </article>
         <% })} %>
     </div>
   

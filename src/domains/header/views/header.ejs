@@ -23,8 +23,8 @@
             <li>
                 <a href="/user/cart">
                     <i class="fa-solid fa-basket-shopping"></i>
-                    <% if (typeof user !== 'undefined' && user && user.cart > 0) { %>
-                        <span class="circle-count"><%= user.cart %></span>
+                    <% if (typeof user !== 'undefined' && user) { %>
+                        <span class="circle-count" id="user-cart-count"><%= user.cart %></span>
                     <% } %>
                     <p>Koszyk</p>
                 </a>
@@ -33,8 +33,8 @@
             <li>
                 <a href="/user/favorites">
                     <i class="fa-solid fa-heart"></i>
-                    <% if (typeof user !== 'undefined' && user && user.favorites > 0) { %>
-                        <span class="circle-count"><%= user.favorites %></span>
+                    <% if (typeof user !== 'undefined' && user) { %>
+                        <span class="circle-count" id="user-fav-count"><%= user.favorites %></span>
                     <% } %>
                     <p>Ulubione</p>
                 </a>

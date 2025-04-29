@@ -1,7 +1,7 @@
 const userService = require('../services/userService');
 const { currentDate } = require('../utils/currentDate');
 const { userPaths } = require('../utils/userPaths');
-const { GetUser } = require('../models/userModel');
+const { GetUser, getPaymentParams } = require('../models/userModel');
 const { GetUserBooks } = require('../models/bookModel');
 
 exports.showLoginPage = async (req, res) => {
@@ -121,63 +121,31 @@ exports.handleResetPassword = async (req, res) => {
     }
 };
 
-exports.handleFavorites = async (req, res) => {
+exports.handleUserItem = async (req, res) => {
     try {
-        const { id_ksiazki } = req.body;
+        if (!req.session.user) {
+            throw 'Musisz być zalogowany.';
+        }
 
-        const book = await userService.getUserBookById(id_ksiazki, req.session.user.id_klienta);
+        const { status, count } = await userService.getUserBookById(req.body, req.session.user);
 
-        return res.status(200).json({ book });
+        return res.status(200).json({ status, count });
     } catch(error) {
-        return res.status(500).json({ error });
+        return res.status(500).json(error);
     }
-    
-    const { id_ksiazki, id_klienta } = req.body;
-
-  try {
-    // Sprawdź, czy książka już istnieje dla tego klienta
-    const { data: istnieje, error: selectError } = await supabase
-      .from('ulubione_ksiazki')
-      .select('*')
-      .eq('id_ksiazki', id_ksiazki)
-      .eq('id_klienta', id_klienta)
-      .single();
-
-    if (selectError && selectError.code !== 'PGRST116') {
-      return res.status(500).json({ error: selectError.message });
-    }
-
-    if (istnieje) {
-      // Update: posiadane = true
-      const { error: updateError } = await supabase
-        .from('ulubione_ksiazki')
-        .update({ posiadane: true })
-        .eq('id_ksiazki', id_ksiazki)
-        .eq('id_klienta', id_klienta);
-
-      if (updateError) throw updateError;
-      return res.json({ message: 'Zaktualizowano książkę jako posiadaną.' });
-    } else {
-      // Insert nowego wpisu
-      const { error: insertError } = await supabase
-        .from('ulubione_ksiazki')
-        .insert([{ id_ksiazki, id_klienta, posiadane: true }]);
-
-      if (insertError) throw insertError;
-      return res.json({ message: 'Dodano książkę do ulubionych jako posiadaną.' });
-    }
-
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
 };
 
-
-
-
-/*
 exports.showPayPage = async (req, res) => {
+    /*
     try {
+        
+        const { books, user, delivery } = await getPaymentParams(res.session.user);
+
+
+
+
+
+
         const delivery = await getDataByParams('dostawy', '*');
         const books = await getDataByFunction('get_books_from_cart', { input : res.locals.user.id_klienta});
         const userInfo = await getDataByParams('klienci', 'imie, nazwisko, ulica, numer_domu, numer_lokalu, kod_pocztowy, miejscowosc, numer_telefonu', { 'id_klienta' : res.locals.user.id_klienta })
@@ -191,8 +159,10 @@ exports.showPayPage = async (req, res) => {
     } catch (error) {
         return res.render(userPaths.pay, { error });
     }
+    */
 };
 
+/*
 exports.handlePay = async (req, res) => {
     try {
         const { imie, nazwisko, ulica, numer_domu, numer_lokalu, kod_pocztowy, miejscowosc, numer_telefonu, id_dostawy } = req.body;

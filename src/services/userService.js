@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { GetUser, GetCount, SetUser, UpdateUserData } = require('../models/userModel');
-const { GetUserBookById } = require('../models/bookModel');
+const { GetUserBookById, SetUserBookById, UpdateUserBookById, GetBooksById } = require('../models/bookModel');
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 exports.loginUser = async (email, password) => {
@@ -19,8 +19,14 @@ exports.loginUser = async (email, password) => {
 
         delete user.haslo;
 
-        user.cart = await GetCount('koszyk', user.id_klienta);
-        user.favorites = await GetCount('ulubione_ksiazki', user.id_klienta);
+        const { data : cart, count : cartAmount } = await GetCount('koszyk', user.id_klienta);
+        const { data : favorites, count : favoritesAmount } = await GetCount('ulubione_ksiazki', user.id_klienta);
+
+        user.cartIds = cart.map(item => item.id_ksiazki);
+        user.favIds = favorites.map(item => item.id_ksiazki);
+
+        user.cart = cartAmount;
+        user.favorites = favoritesAmount;
  
         return user;
     } catch (error) {
@@ -29,8 +35,7 @@ exports.loginUser = async (email, password) => {
 };
 
 exports.registerUser = async ({ login, email, haslo }) => {
-    try {
-        
+    try { 
         const data = await GetUser('id_klienta', { 'login' : login, 'email' : email }, true);
 
         if (data) {
@@ -82,17 +87,51 @@ exports.resetPassword = async (inputBody, inputSession) => {
     }
 };
 
-exports.getUserBookById = async (id_ksiazki, id_klienta) => {
+exports.getUserBookById = async (body, user) => {
     try {
-        const book = await GetUserBookById('ulubione_ksiazki', 'id_ksiazki', id_ksiazki);
+        const { id_ksiazki, userItem, path, ids } = body;
+        const { id_klienta } = user;
 
-        return book;
+        const book = await GetUserBookById(path, id_ksiazki);
+
+        let status;
+
+        if (!book) {
+            await SetUserBookById(path, { id_ksiazki, id_klienta, posiadane: true });
+            user[ids].push(book.id_ksiazki);
+            status = true;
+        } else {
+            const nowOwned = !book.posiadane;
+            await UpdateUserBookById(path, nowOwned, book.id_ksiazki);
+
+            if (nowOwned) {
+                user[ids].push(book.id_ksiazki);
+            } else {
+                user[ids] = user[ids].filter(bookId => bookId !== book.id_ksiazki);
+            }
+
+            status = nowOwned;
+        }
+
+        user[userItem] += status ? 1 : -1;
+
+        return { status, count: user[userItem] };
     } catch (error) {
         throw error;
     }
 };
 
+exports.getPaymentParams = async (user) => {
+    try {
+        const { id_klienta } = user;
 
+        const books = await GetBooksById(id_klienta);
+
+        
+    } catch (error) {
+
+    }
+}
 
 
 /*

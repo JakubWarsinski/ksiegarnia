@@ -95,3 +95,10 @@
     background-color: rgb(103, 84, 99);
     transform: scale(1.1);
 }
+
+.button-collection {
+    margin: 0.2rem 0 0.4rem 0;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+}
