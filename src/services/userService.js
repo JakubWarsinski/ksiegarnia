@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { GetUser, GetCount, SetUser, UpdateUserData } = require('../models/userModel');
+const { GetUser, GetCount, SetUser, UpdateUserData, GetAllDelivers, GetUserDetails } = require('../models/userModel');
 const { GetUserBookById, SetUserBookById, UpdateUserBookById, GetBooksById } = require('../models/bookModel');
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
@@ -121,13 +121,35 @@ exports.getUserBookById = async (body, user) => {
     }
 };
 
-exports.getPaymentParams = async (user) => {
+exports.getPaymentParams = async (user, req) => {
     try {
         const { id_klienta } = user;
 
         const books = await GetBooksById(id_klienta);
+        const delivery = await GetAllDelivers();
+        const userInfo = await GetUserDetails(id_klienta);
 
+        let price = 0;
+
+        books.forEach( function(book) {
+            if (book.promocja) {
+                price += book.cena * (book.promocja / 100);
+            }
+            else {
+                price += book.cena;
+            }
+        });
+
+        price = price.toFixed(2);
+
+        delete userInfo.haslo;
+
+        req.userPrice = price;
+
+        console.log(books);
         
+
+        return { books, delivery, userInfo, price };
     } catch (error) {
 
     }

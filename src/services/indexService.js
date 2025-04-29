@@ -1,15 +1,15 @@
-const { searchBooks } = require("../models/bookModel");
+const { GetSearchedBooksByTitle, GetSearchedBooksByGenre, GetSearchedBooksByAuthor } = require("../models/bookModel");
 
 exports.getSearchedBooks = async (searchParams) => {
     try {
         const { title, genre, author } = searchParams;
 
         if (title) {
-            return await searchBooks('tytul', title, 'ilike');
+            return await GetSearchedBooksByTitle(title);
         } else if (genre) {
-            return await searchBooks('gatunki_ksiazki.id_gatunku', genre, 'eq');
+            return await GetSearchedBooksByGenre(genre);
         } else if (author) {
-            return await searchBooks('id_autora', author, 'eq');
+            return await GetSearchedBooksByAuthor(author);
         } else { 
             return null; 
         }

@@ -107,3 +107,25 @@ exports.getDelivers = async () => {
 
     return data;
 }
+
+exports.GetUserDetails = async (userId) => {
+    const { data, error } = await supabase
+        .from('klienci')
+        .select('*')
+        .eq('id_klienta', userId)
+        .maybeSingle();
+
+    if (error) throw error;
+
+    return data;
+}
+
+exports.GetAllDelivers = async () => {    
+    const { data, error } = await supabase
+        .from('dostawy')
+        .select('id_dostawy, nazwa_dostawy')
+
+    if (error) throw error.message;
+
+    return data;
+}

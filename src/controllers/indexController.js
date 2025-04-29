@@ -1,5 +1,5 @@
 const { getSearchedBooks, getUserBookById } = require('../services/indexService');
-const { getTopBooks, getLowStockBooks, getPromotionBooks, getBookDetails, getSimilarBooks, getAuthors, getGenres } = require("../models/bookModel");
+const { GetTopBooks, GetLastBooks, GetPromotionBooks, GetDetailedDadaBook, GetSimilarBooks, GetAuthors, GetGenres } = require("../models/bookModel");
 const { indexPaths } = require('../utils/indexPaths');
 
 exports.showHomePage = async (req, res) => {
@@ -10,9 +10,9 @@ exports.showHomePage = async (req, res) => {
             return res.render(indexPaths.home, { searchBooks });
         }
 
-        const topBooks = await getTopBooks(10);
-        const lastBooks = await getLowStockBooks();
-        const promotionBooks = await getPromotionBooks();
+        const topBooks = await GetTopBooks();
+        const lastBooks = await GetLastBooks();
+        const promotionBooks = await GetPromotionBooks();
 
         return res.render(indexPaths.home, { topBooks, lastBooks, promotionBooks });
     } catch (error) {
@@ -22,7 +22,7 @@ exports.showHomePage = async (req, res) => {
 
 exports.showGenres = async (req, res) => {
     try {
-        const genres = await getGenres();
+        const genres = await GetGenres();
 
         return res.render(indexPaths.genres, { genres });
     } catch (error) {
@@ -32,7 +32,7 @@ exports.showGenres = async (req, res) => {
 
 exports.showAuthors = async (req, res) => {
     try {
-        const authors = await getAuthors();
+        const authors = await GetAuthors();
 
         return res.render(indexPaths.authors, { authors });
     } catch (error) {
@@ -44,9 +44,9 @@ exports.showBook = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const book = await getBookDetails(id);
+        const book = await GetDetailedDadaBook(id);
 
-        let similarBooks = await getSimilarBooks(book.gatunki_id);
+        let similarBooks = await GetSimilarBooks(book.gatunki_id);
         
         similarBooks = similarBooks.filter(b => b.id_ksiazki !== book.id_ksiazki);
 

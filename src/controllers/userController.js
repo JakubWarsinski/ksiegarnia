@@ -1,7 +1,7 @@
 const userService = require('../services/userService');
 const { currentDate } = require('../utils/currentDate');
 const { userPaths } = require('../utils/userPaths');
-const { GetUser, getPaymentParams } = require('../models/userModel');
+const { GetUser } = require('../models/userModel');
 const { GetUserBooks } = require('../models/bookModel');
 
 exports.showLoginPage = async (req, res) => {
@@ -136,14 +136,15 @@ exports.handleUserItem = async (req, res) => {
 };
 
 exports.showPayPage = async (req, res) => {
-    /*
     try {
+        const { books, userInfo, delivery, price } = await userService.getPaymentParams(req.session.user, req.session);
+
         
-        const { books, user, delivery } = await getPaymentParams(res.session.user);
 
+        return res.render(userPaths.pay, { books, delivery, userInfo, price });
+        /*
 
-
-
+        
 
 
         const delivery = await getDataByParams('dostawy', '*');
@@ -156,10 +157,10 @@ exports.showPayPage = async (req, res) => {
         req.session.payData = { delivery, books, userInfo, bookCount, totalPrice};
 
         return res.render(userPaths.pay, { delivery, bookCount, totalPrice, userInfo });
+        */
     } catch (error) {
         return res.render(userPaths.pay, { error });
     }
-    */
 };
 
 /*

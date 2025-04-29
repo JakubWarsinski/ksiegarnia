@@ -1,234 +1,5 @@
 const supabase = require('../server/supaBase.js');
 
-const baseSelect = `
-    id_ksiazki, tytul, okladka, cena, promocja, 
-    autorzy (imie, nazwisko), 
-    gatunki_ksiazki (gatunki (gatunek, id_gatunku)), 
-    ulubione_ksiazki (posiadane), 
-    koszyk (posiadane)
-`;
-
-function handleSupabaseError(error) {
-    if (error) throw error.message || error;
-}
-
-function remapBooks(data, detailed = false) {
-    return data.map(ksiazka => ({
-        id_ksiazki: ksiazka.id_ksiazki,
-        tytul: ksiazka.tytul,
-        okladka: ksiazka.okladka,
-        cena: ksiazka.cena,
-        promocja: ksiazka.promocja,
-        autor: ksiazka.autorzy,
-        gatunki: ksiazka.gatunki_ksiazki?.map(gk => gk.gatunki.gatunek) || [],
-        gatunki_id: detailed ? ksiazka.gatunki_ksiazki?.map(gk => gk.gatunki.id_gatunku) : undefined,
-        ilosc_stron: detailed ? ksiazka.ilosc_stron : undefined,
-        ilosc_na_stanie: detailed ? ksiazka.ilosc_na_stanie : undefined,
-        opis: detailed ? ksiazka.opis : undefined,
-        koszyk: ksiazka.koszyk?.map(gk => gk.posiadane) || [],
-        ulubione_ksiazki: ksiazka.ulubione_ksiazki?.map(gk => gk.posiadane) || [],
-    }));
-}
-
-exports.searchBooks = async (field, query, type = 'ilike') => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select(baseSelect)
-        [type](field, type === 'ilike' ? `%${query}%` : query)
-        .not(field.includes('.') ? field.split('.')[0] : field, 'is', null);
-
-    handleSupabaseError(error);
-
-    return remapBooks(data);
-}
-
-exports.getTopBooks = async (limit = 10) => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select(baseSelect)
-        .limit(limit);
-
-    handleSupabaseError(error);
-
-    return remapBooks(data);
-}
-
-exports.getLowStockBooks = async () => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select(baseSelect)
-        .lt('ilosc_na_stanie', 10);
-
-    handleSupabaseError(error);
-
-    return remapBooks(data);
-}
-
-exports.getPromotionBooks = async () => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select(baseSelect)
-        .not('promocja', 'is', null);
-
-    handleSupabaseError(error);
-
-    return remapBooks(data);
-}
-
-exports.getBookDetails = async (id_ksiazki) => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select(`${baseSelect}, ilosc_stron, ilosc_na_stanie, opis`)
-        .eq('id_ksiazki', id_ksiazki)
-        .maybeSingle();
-
-    handleSupabaseError(error);
-
-    return remapBooks([data], true)[0];
-}
-
-exports.getSimilarBooks = async (genres) => {
-    const { data, error } = await supabase
-        .from('ksiazki')
-        .select('id_ksiazki, tytul, okladka, gatunki_ksiazki (id_gatunku)');
-
-    handleSupabaseError(error);
-
-    return data.filter(book => 
-        book.gatunki_ksiazki.some(gk => genres.includes(gk.id_gatunku))
-    );
-}
-
-exports.getAuthors = async () => {
-    const { data, error } = await supabase
-        .from('autorzy')
-        .select('id_autora, imie, nazwisko');
-
-    handleSupabaseError(error);
-
-    return data;
-}
-
-exports.getGenres = async () => {
-    const { data, error } = await supabase
-        .from('gatunki')
-        .select('id_gatunku, gatunek');
-
-    handleSupabaseError(error);
-
-    return data;
-}
-
-// Operacje na książkach użytkownika (ulubione, koszyk itd.)
-exports.userBookAction = {
-    get: async (table, userId) => {
-        const { data, error } = await supabase
-            .from('ksiazki')
-            .select(`id_ksiazki, okladka, tytul, ${table}()`)
-            .eq(`${table}.id_klienta`, userId)
-            .eq(`${table}.posiadane`, true)
-            .not(table, 'is', null);
-
-        handleSupabaseError(error);
-        return data;
-    },
-    getById: async (table, id_ksiazki) => {
-        const { data, error } = await supabase
-            .from(table)
-            .select('id_ksiazki, posiadane')
-            .eq('id_ksiazki', id_ksiazki)
-            .maybeSingle();
-
-        handleSupabaseError(error);
-        return data;
-    },
-    insert: async (table, input) => {
-        const { data, error } = await supabase
-            .from(table)
-            .insert(input);
-
-        handleSupabaseError(error);
-        return data;
-    },
-    update: async (table, id_ksiazki, posiadane) => {
-        const { data, error } = await supabase
-            .from(table)
-            .update({ posiadane })
-            .eq('id_ksiazki', id_ksiazki);
-
-        handleSupabaseError(error);
-        return data;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const select = 'id_ksiazki, tytul, okladka, cena, promocja, autorzy (imie, nazwisko), gatunki_ksiazki (gatunki (gatunek, id_gatunku)), ulubione_ksiazki (posiadane), koszyk (posiadane)';
 
 function RemapData(data) {
@@ -372,7 +143,7 @@ exports.GetSimilarBooks = async (genres) => {
     return filteredBooks;
 }
 
-exports.getAuthors = async () => {
+exports.GetAuthors = async () => {
     const { data, error } = await supabase
         .from('autorzy')
         .select('id_autora, imie, nazwisko');
@@ -425,11 +196,11 @@ exports.UpdateUserBookById = async (from, input, eq) => {
     return data;
 }
 
-exports.GetBooksById = async (userId) => {
+exports.GetBooksById = async (userId) => {    
     const { data, error } = await supabase
         .from('ksiazki')
-        .select(`id_ksiazki, okladka, tytul, koszyk()`)
-        .eq('id_klienta', userId)
+        .select(`id_ksiazki, okladka, tytul, cena, promocja, koszyk()`)
+        .eq('koszyk.id_klienta', userId)
         .not('koszyk', 'is', null);
 
     if (error) throw error.message;
