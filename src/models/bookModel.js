@@ -163,12 +163,12 @@ exports.GetGenres = async () => {
     return data;
 }
 
-exports.GetUserBookById = async (from, id_ksiazki) => {
+exports.GetUserBookById = async (from, id_ksiazki, id_klienta) => {
     const { data, error } = await supabase
         .from(from)
         .select('id_ksiazki, posiadane')
-        .eq('id_ksiazki', id_ksiazki)
-        .maybeSingle()
+        .match({ 'id_ksiazki': id_ksiazki, 'id_klienta': id_klienta })
+        .maybeSingle();
 
     if (error) throw error.message;
 

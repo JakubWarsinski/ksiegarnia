@@ -50,9 +50,7 @@ exports.registerUser = async (req, res) => {
                 haslo 
             });
 
-        req.session.user = user;
-
-        return res.redirect('/home');
+        return res.redirect('/user');
     } catch (error) {
         return res.render(userPaths.register, { error });
     }

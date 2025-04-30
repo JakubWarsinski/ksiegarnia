@@ -92,13 +92,13 @@ exports.getUserBookById = async (body, user) => {
         const { id_ksiazki, userItem, path, ids } = body;
         const { id_klienta } = user;
 
-        const book = await GetUserBookById(path, id_ksiazki);
+        const book = await GetUserBookById(path, id_ksiazki, id_klienta);
 
         let status;
 
         if (!book) {
             await SetUserBookById(path, { id_ksiazki, id_klienta, posiadane: true });
-            user[ids].push(book.id_ksiazki);
+            user[ids].push(id_ksiazki);
             status = true;
         } else {
             const nowOwned = !book.posiadane;
@@ -145,10 +145,7 @@ exports.getPaymentParams = async (user, req) => {
         delete userInfo.haslo;
 
         req.userPrice = price;
-
-        console.log(books);
         
-
         return { books, delivery, userInfo, price };
     } catch (error) {
 
