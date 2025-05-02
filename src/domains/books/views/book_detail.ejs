@@ -22,56 +22,50 @@
     %>
 
     <main>
-        <% if (typeof error !== 'undefined' && error) { %>
-            <p><%= error %></p>
-        <% } %>
-
-        <% if (typeof book !== 'undefined' && book) { %>
-            <p><%= book.tytul %></p>
-
-            <img src="/books/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" width="200" height="auto">
-
-            <p>Autor: <%= author %></p>
-
-            <p>Opis: <%= book.opis %></p>
-
-            <p>Gatunki: </p>
-            
-            <ul>                    
-                <% book.gatunki.forEach(function(genre) { %>
-                    <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span><br>
-                <% }); %>
-            </ul>
-
-            <p>Ilość stron: <%= book.ilosc_stron %></p>
-            <p>Ilość na stanie: <%= book.ilosc_na_stanie %></p>
-
-            <p>Cena: 
-                <% if (discountedPrice) { %>
-                    <s class="promotion-text"><%= price %> zł</s> 
-                    <span class="promotion-new-text"><%= discountedPrice %> zł</span>
-                <% } else { %>
-                    <%= price %> zł
-                <% } %>
-            </p>
-
-            <p>Lista książek o tym podobnym gatunku:</p>
-
-            <% if (typeof similarBooks !== 'undefined' && similarBooks && similarBooks.length > 0) { %>
-                <ul> 
-                    <% similarBooks.forEach(function(similarBook) { %>
-                        <li>
-                            <a href="/home/book/<%= similarBook.id_ksiazki %>">
-                                <p><strong><%= similarBook.tytul %></strong></p>
-                                <img src="/books/images/books/<%= similarBook.okladka %>" alt="<%= book.tytul %>" width="100" height="auto">
-                            </a>
-                        </li>
-                    <% }); %>
-                </ul>
-            <%} else {%>
-                <p>Brak podobnych książek</p>
-            <%}%>
-        <% } %>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p><%= error %></p>
+            <% } %>
+        
+            <% if (typeof book !== 'undefined' && book) { %>
+                <div class="book-cover">
+                    <img src="/books/images/books/<%= book.okladka %>" alt="<%= book.tytul %>">
+                </div>
+        
+                <div class="book-info">
+                    <h1><%= book.tytul %></h1>
+                    <p><strong>Autor:</strong> <%= author %></p>
+                    <p><strong>Opis:</strong> <%= book.opis %></p>
+                    <p><strong>Gatunki:</strong></p>
+                    <div>
+                        <% book.gatunki.forEach(function(genre) { %>
+                            <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span>
+                        <% }); %>
+                    </div>
+                    <p><strong>Ilość stron:</strong> <%= book.ilosc_stron %></p>
+                    <p><strong>Na stanie:</strong> <%= book.ilosc_na_stanie %></p>
+        
+                    <p><strong>Cena:</strong> 
+                        <% if (discountedPrice) { %>
+                            <s class="promotion-text"><%= price %> zł</s> 
+                            <span class="promotion-new-text"><%= discountedPrice %> zł</span>
+                        <% } else { %>
+                            <%= price %> zł
+                        <% } %>
+                    </p>
+                </div>
+                <div class="book-buttons">
+                    <form action="/cart/add/<%= book.id_ksiazki %>" method="POST">
+                        <button type="submit" class="pill-button add-to-cart">Do koszyka</button>
+                    </form>
+                
+                    <form action="/favorites/add/<%= book.id_ksiazki %>" method="POST">
+                        <button type="submit" class="pill-button add-to-favorites">Dodaj do ulubionych</button>
+                    </form>
+                </div>
+                
+                
+            <% } %>
+        
     </main>
 
     <%- include('../../footer/views/footer') %>
