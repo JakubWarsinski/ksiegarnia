@@ -1,18 +1,21 @@
 <%- include('../../structure/views/head', { 
     title : "Logowanie",
-    styles : ['/user/css/login.css'],
-    scripts : []
+    styles : ['/user/css/login.css', '/home/css/index.css', '/header/css/header.css', '/books/css/genres.css', '/books/css/promotion.css', '/books/css/special_buttons.css'], 
+    scripts :['/home/js/index.js', '/header/js/header.js', '/books/js/item_button.js']
 }); %>
-  
+
 <body>
-    <main>
-        <p>Zaloguj się</p>
+    <%- include('../../header/views/header') %>
+  
+    <main class="login-container">
+           
+        <h1>Zaloguj się</h1>
 
         <% if (typeof error !== 'undefined' && error) { %>
-            <p><%= error %></p>
+            <p class="error"><%= error %></p>
         <% } %>
 
-        <form action="/user" method="POST">
+        <form action="/user" method="POST" class="login-form">
             <label for="email">E-mail*</label>
             <input type="text" id="email" name="email" required>
 
@@ -22,12 +25,11 @@
             <button type="submit">Zaloguj</button>
         </form>
 
-        <p>Nie masz jeszcze konta? <a href="/user/new">Zarejestruj</a> się</p>
-
-        <p>Zapomniałeś hasła? <a href="/user/forgot">zresetuje</a> je</p>
+        <p>Nie masz jeszcze konta? <a href="/user/new">Zarejestruj się</a></p>
+        <p>Zapomniałeś hasła? <a href="/user/forgot">Zresetuj je</a></p>
     </main>
 
     <%- include('../../footer/views/footer') %>   
 </body>
-
 </html>
+
