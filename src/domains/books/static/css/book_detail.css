@@ -60,7 +60,7 @@ main {
   .pill-button {
     padding: 0.5rem 1.2rem;
     font-size: 0.95rem;
-    border-radius: 2rem; /* bardziej zaokrąglone, jak w stopce */
+    border-radius: 2rem; 
     border: none;
     cursor: pointer;
     font-weight: bold;
@@ -69,7 +69,7 @@ main {
     transition: background-color 0.3s, color 0.3s;
   }
   
-  /* Styl jak gatunki – szary tło, różowy przy hoverze */
+
   .add-to-cart {
     background-color: #ff0457ff;
     color: white;
