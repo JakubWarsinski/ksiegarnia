@@ -21,3 +21,6 @@ document.getElementById('newsletter-form').addEventListener('submit', async (e) 
         messageElem.textContent = 'Wystąpił problem z połączeniem.';
     }
 });
+// aaaa
+//ssss
+//ttttt
