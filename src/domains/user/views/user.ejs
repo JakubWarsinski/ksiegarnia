@@ -11,33 +11,22 @@
             <p class="error-message"><%= error %></p>
         <% } %>
     
-        <h1 class="user-heading">Twój profil</h1>
+        <h1 class="user-heading">Witaj, <%= userInfo.login %>!</h1>
     
-        <section class="user-info">
-            <p><strong>Login:</strong> <%= userInfo.login %></p>
-            <p><strong>E-mail:</strong> <%= userInfo.email %></p>
-            <p><strong>Imię:</strong> <%= userInfo.imie %></p>
-            <p><strong>Nazwisko:</strong> <%= userInfo.nazwisko %></p>
-            <p><strong>Numer telefonu:</strong> <%= userInfo.numer_telefonu %></p>
+        <section class="user-actions-wrapper">
+            <div class="user-actions">
+                <a href="/user/contact" class="pill-button">Dane kontaktowe</a>
+                <a href="/user/orders" class="pill-button">Zamówienia</a>
+                <a href="/user/change-password" class="pill-button">Zmiana hasła</a>
+            </div>
         </section>
-    
-        <section class="user-actions">
-            <a href="/user/cart" class="pill-button action-button">
-                <i class="fa-solid fa-basket-shopping"></i> Koszyk
-            </a>
-    
-            <a href="/user/favorites" class="pill-button action-button">
-                <i class="fa-solid fa-heart"></i> Ulubione
-            </a>
-        </section>
+        
     
         <section class="user-nav">
             <a href="/home" class="link-back">← Wróć na stronę główną</a>
             <a href="/user/logout" class="pill-button logout-button">Wyloguj</a>
         </section>
     </main>
-    
-    
 
     <%- include('../../footer/views/footer') %>   
 </body>
