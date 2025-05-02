@@ -54,6 +54,4 @@ exports.showBook = async (req, res) => {
     } catch (error) {
         return res.render(indexPaths.book, { error });
     }
-
-    //
 };
