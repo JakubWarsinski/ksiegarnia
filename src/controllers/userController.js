@@ -133,6 +133,10 @@ exports.handleUserItem = async (req, res) => {
     }
 };
 
+exports.showOrderListPage = (req, res) => {
+    return res.render(userPaths.orderList);
+};
+
 exports.showPayPage = async (req, res) => {
     try {
         const { books, userInfo, delivery, price } = await userService.getPaymentParams(req.session.user, req.session);

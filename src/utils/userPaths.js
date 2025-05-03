@@ -6,5 +6,6 @@ export const userPaths = Object.freeze({
     favorites: 'user/views/favorites',
     forgot: 'user/views/forgot',
     reset: 'user/views/reset',
-    pay: 'user/views/pay'
+    pay: 'user/views/pay',
+    orderList: 'user/views/order_list'
 });

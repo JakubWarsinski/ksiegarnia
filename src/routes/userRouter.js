@@ -30,4 +30,7 @@ router.get('/cart', isAuthenticated, userController.showCartPage);
 router.get('/favorites', isAuthenticated, userController.showFavoritesPage);
 router.post('/additem', userController.handleUserItem);
 
+router.get('/favorites', isAuthenticated, userController.showFavoritesPage);
+router.get('/order_list', isAuthenticated, userController.showOrderListPage);
+
 module.exports = router;
