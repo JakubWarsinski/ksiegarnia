@@ -1,9 +1,9 @@
-const { getEmail, SetEmail } = require("../models/newsletterModel");
+const { getEmail, SetEmail } = require("../models/footerModel");
 
 exports.addEmailToNewsletter = async (email) => {
     try {
         if (await getEmail(email)) {
-            throw 'Ten email już jest zapisany.';
+            throw 'Ten email jest już zapisany.';
         }
 
         if (!await SetEmail(email)) {
@@ -12,6 +12,6 @@ exports.addEmailToNewsletter = async (email) => {
 
         return 'Zapisano newslettera.';
     } catch(error) {
-        throw error;
+        throw error.message;
     }
 };
