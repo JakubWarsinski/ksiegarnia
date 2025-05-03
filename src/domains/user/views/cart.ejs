@@ -5,31 +5,61 @@
 }); %>
 
 <body>
-    <%- include('../../header/views/header') %>
+<%- include('../../header/views/header') %>
 
-    <main>
-        <% if (typeof error !== 'undefined' && error) { %>
-            <p><%= error %></p>
-        <% }%>
+<main class="cart-container">
+    <% if (typeof error !== 'undefined' && error) { %>
+        <p class="error-message"><%= error %></p>
+    <% } %>
 
-        <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
-            <ul>
-                <% books.forEach(function(book) {%>
-                    <li>
-                        <a href="/home/book/<%= book.id_ksiazki %>">
-                            <p><%= book.tytul %></p>
-                            <img src="/books/images/books/<%= book.okladka %>" width="auto" height="100px">
-                        </a>
-                    </li>
-                <%});%>
+    <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
+        <ul class="cart-list">
+            <% books.forEach(function(book) { %>
+                <li class="cart-item">
+                    <a href="/home/book/<%= book.id_ksiazki %>" class="cart-link">
+                        <img src="/books/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" class="cart-image">
+                        <div class="cart-info">
+                            <p class="cart-title"><%= book.tytul %></p>
+                            <p class="cart-meta">Autor: <%= book.autor %></p>
+                            <p class="cart-price"><%= book.cena %> PLN</p>
+                        </div>
+                    </a>
+                
+                    <div class="cart-right-column">
+                        <div class="quantity-control">
+                            <button type="button" class="decrease-btn">–</button>
+                            <input type="number" value="<%= book.ilosc %>" min="1" class="quantity-input" readonly>
+                            <button type="button" class="increase-btn">+</button>
+                        </div>
+                    
+                     
+                
+                            <button type="submit" name="action" value="remove" class="remove-button">Usuń z koszyka</button>
+                        </form>
+                    </div>
+                </li>
+                
+            <% }); %>
+        </ul>
 
-                <p><a href='/user/pay'>Złóż zamówienie</a></p>
-            </ul>
-        <% } else { %>
-            <p>Brak książek w koszyku</p>    
-        <% } %>
-    </main>
+        <div class="cart-summary">
+            <div class="total-line">
+                <span>Łączna kwota</span>
+                <span>211,93 PLN</span> 
+            </div>
+            <a href="/user/pay" class="checkout-button">Do kasy • 211,93 PLN</a>
+        </div>
+    <% } else { %>
+        <p class="empty-cart">Brak książek w koszyku</p>
+    <% } %>
+</main>
 
-    <%- include('../../footer/views/footer') %>   
+<%- include('../../footer/views/footer') %>   
 </body>
 </html>
+  
+  
+  
+
+
+
