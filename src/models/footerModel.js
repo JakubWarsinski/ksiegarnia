@@ -7,7 +7,7 @@ exports.getEmail = async (email) => {
         .eq('email', email)
         .maybeSingle();
 
-    if (error) throw error.message;
+    if (error) throw error;
 
     return data;
 }
@@ -19,7 +19,7 @@ exports.SetEmail = async (email) => {
         .select()
         .maybeSingle();
 
-    if (error) throw error.message;
+    if (error) throw error;
 
     return data;
 }
