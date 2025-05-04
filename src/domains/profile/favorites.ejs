@@ -1,0 +1,34 @@
+<%- include('../partials/html', { 
+    title : "Ulubione",
+    styles : [ 'user/favorites' ],
+    scripts : [ 'header' ]
+}); %>
+  
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
+            <ul>
+                <% books.forEach(function(book) {%>
+                    <li>
+                        <a href="/home/book/<%= book.id_ksiazki %>">
+                            <p><%= book.tytul %></p>
+                            <img src="/images/books/<%= book.okladka %>">
+                        </a>
+                    </li>
+                <%});%>
+            </ul>
+        <% } else { %>
+            <p>Brak ulubionych książek</p>    
+        <% } %>
+    </main>
+
+    <%- include('../partials/footer') %>   
+</body>
+
+</html>

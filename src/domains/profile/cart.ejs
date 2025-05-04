@@ -1,0 +1,80 @@
+<%- include('../partials/html', { 
+    title : "Koszyk",
+    styles : [ 'profile/cart', 'books/promotion' ],
+    scripts : [ 'header', 'cart-buttons' ]
+}); %>
+
+<% let totalPrice = 0; %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p class="error-message"><%= error %></p>
+        <% } %>
+
+        <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
+            <ul class="cart-list">
+                <% books.forEach(function(book) { %>
+                    <% 
+                        let author = null;
+                        let price = null;
+                        let promotion = null;
+                        let discountedPrice = null;
+
+                        if (typeof book !== 'undefined' && book) {
+                            author = `${book.autor.imie} ${book.autor.nazwisko}`;
+                            price = book.cena;
+                            promotion = book.promocja;
+                            discountedPrice = promotion ? (price * (promotion / 100)).toFixed(2) : null;
+                            totalPrice += promotion ? discountedPrice * book.ilosc : price * book.ilosc;
+                        }
+                    %>
+
+                    <li class="cart-item" data-id="<%= book.id_ksiazki %>">
+                        <a href="/home/book/<%= book.id_ksiazki %>" class="cart-link">
+                            <img src="/images/books/<%= book.okladka %>" alt="<%= book.tytul %>" class="cart-image">
+                            
+                            <div class="cart-info">
+                                <p class="cart-title"><%= book.tytul %></p>
+                                <p class="cart-meta">Autor: <%= author %></p>
+                                <p class="cart-price" data-id="<%= book.id_ksiazki %>">
+                                    <% if (discountedPrice) { %>
+                                        Cena: <s class="promotion-text"><%= price %> zł</s> 
+                                        <span class="promotion-new-text"><%= discountedPrice %> zł</span>
+                                    <% } else { %>
+                                        Cena: <%= price %> zł
+                                    <% } %>
+                                </p>
+                            </div>
+                        </a>
+                    
+                        <div class="cart-right-column">
+                            <div class="quantity-control">
+                                <button type="button" data-id="<%= book.id_ksiazki %>" class="decrease-btn" data-price="<% if (discountedPrice) { %><%= discountedPrice %><%}else{%><%=price%><%}%>">–</button>
+                                    <input type="text" value="<%= book.ilosc %>" min="1" class="quantity-input" readonly data-id="<%= book.id_ksiazki %>">
+                                <button type="button" data-id="<%= book.id_ksiazki %>" class="increase-btn" data-price="<% if (discountedPrice) { %><%= discountedPrice %><%}else{%><%=price%><%}%>">+</button>
+                            </div>
+
+                            <button type="submit" class="remove-button" data-id="<%= book.id_ksiazki %>">Usuń z koszyka</button>
+                        </div>
+                    </li>
+                <% }); %>
+            </ul>
+
+            <div class="cart-summary">
+                <% totalPrice = totalPrice.toFixed(2) %>
+
+                <p class="total-line">Łączna kwota: <strong id="total_price"><%= totalPrice %></strong> zł</p>
+
+                <a href="/user/pay" class="checkout-button">Przejdź do zapłaty</a>
+            </div>
+        <% } else { %>
+            <p class="empty-cart">Brak książek w koszyku</p>
+        <% } %>
+    </main>
+
+    <%- include('../partials/footer') %> 
+</body>
+</html>

@@ -1,0 +1,31 @@
+<%- include('../partials/html', { 
+    title : 'Profil',
+    styles : [ 'profile/dashboard' ],
+}); %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p class="error-message"><%= error %></p>
+        <% } %>
+    
+        <h1 >Witaj, <%= user.login %>!</h1>
+    
+        <section class="user-wrapper">
+            <a href="/user/contact">Dane kontaktowe</a>
+            <a href="/user/orders">Zamówienia</a>
+            <a href="/user/forgot">Zmiana hasła</a>
+        </section>
+
+        <section class="user-nav">
+            <a href="/home" class="link-back">← Wróć na stronę główną</a>
+            <a href="/user/logout" class="logout-button">Wyloguj</a>
+        </section>
+    </main>
+
+    <%- include('../partials/footer') %>   
+</body>
+
+</html>

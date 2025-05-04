@@ -1,0 +1,40 @@
+<%- include('../partials/html', { 
+    title : "Strona Główna",
+    styles : ['home/home', 'books/genres', 'books/promotion', 'books/special_buttons'],
+    scripts : ['home', 'item_button']
+}); %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <% if (typeof error !== 'undefined' && error) { %>
+            <p><%= error %></p>
+        <% } %>
+
+        <% if (typeof searchedBooks !== 'undefined' && searchedBooks) { %>
+            <% if (searchedBooks.length > 0 ) { %>
+                <%- include('../books/book_section', { title : 'WYSZUKIWANE', id : 'books', books : searchedBooks }) %> 
+            <% } else { %>
+                <section class="book-section">
+                    <h1>Nie znaleziono wyniku</h1>
+                </section>
+            <% } %>
+        <% } else { %>
+            <% if (typeof topBooks !== 'undefined' && topBooks) { %>
+                <%- include('../books/book_section', { title : 'TOP 10', id : 'topBooks', books : topBooks }) %>
+            <% } %>
+
+            <% if (typeof promotionBooks !== 'undefined' && promotionBooks) { %>
+                <%- include('../books/book_section', { title : 'NA PROMOCJI', id : 'promotionBooks', books : promotionBooks }) %>
+            <% } %>
+
+            <% if (typeof lastBooks !== 'undefined' && lastBooks) { %>
+                <%- include('../books/book_section', { title : 'OSTATNIE NA SKŁĄDZIE', id : 'lastBooks', books : lastBooks }) %>
+            <% } %>
+        <% } %>
+    </main>
+
+    <%- include('../partials/footer') %>   
+</body>
+</html>

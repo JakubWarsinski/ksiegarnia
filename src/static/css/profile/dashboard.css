@@ -1,0 +1,87 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    vertical-align: middle;
+    gap: 2em;
+    padding: 2rem 2rem 4rem;
+}
+
+main h1 {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+main section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.user-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.user-wrapper a {
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #eee;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.8em 3em;
+    border-radius: 10px 0 10px 0;
+    transition: background-color 0.3s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.user-wrapper a:hover {
+    transform: scale(1.05);
+    color: white;
+    background-color: #ff0457ff;  
+}
+
+.user-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.logout-button {
+    display: block;
+    text-align: center;
+    padding: 0.6em 1.2rem;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    background-color: #ff0457ff;
+    color: white;
+}
+
+.logout-button:hover {
+    transform: scale(1.05);
+    background-color: #ff0457ff;
+    color: white;
+}
+
+.link-back {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+}
