@@ -8,19 +8,21 @@
     <%- include('../partials/header') %>
 
     <main>
-        <h1>Zresetuj Hasło</h1>
-        
-        <% if (typeof error !== 'undefined' && error) { %>
-            <p class="error"><%= error %></p>
-        <% } %>
-
-        <form action="/user/forgot" method="POST" class="login-form">
-            <input type="email" name="email" placeholder="Wpisz swój e-mail" required />
+        <div class="panel">
+            <h1>Zresetuj Hasło</h1>
             
-            <button type="submit">Wyślij kod</button>
-        </form>
-        
-        <p>Wróć na stronę <a href="/user/new">logowania</a></p>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/user/forgot" method="POST" class="login-form">
+                <input type="email" name="email" placeholder="Wpisz swój e-mail" required />
+                
+                <button type="submit">Wyślij kod</button>
+            </form>
+            
+            <p>Wróć na stronę <a href="/user/new">logowania</a></p>
+        </div>
     </main>
     
     <%- include('../partials/footer') %>   
