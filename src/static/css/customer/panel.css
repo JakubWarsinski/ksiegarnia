@@ -53,11 +53,12 @@ h1 {
 }
 
 .login-form input {
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 4px;
     text-align: left;
     font-size: 1em;
+    margin-top: 5px;
 }
 
 .login-form button {
