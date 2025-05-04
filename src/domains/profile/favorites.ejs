@@ -1,9 +1,9 @@
 <%- include('../partials/html', { 
     title : "Ulubione",
-    styles : [ 'user/favorites' ],
+    styles : [ 'profile/favorites', 'books/special_buttons' ],
     scripts : [ 'header' ]
 }); %>
-  
+
 <body>
     <%- include('../partials/header') %>
 
@@ -13,22 +13,47 @@
         <% } %>
 
         <% if (typeof books !== 'undefined' && books && books.length > 0) { %>
-            <ul>
-                <% books.forEach(function(book) {%>
-                    <li>
-                        <a href="/home/book/<%= book.id_ksiazki %>">
-                            <p><%= book.tytul %></p>
-                            <img src="/images/books/<%= book.okladka %>">
+            <div class="favorites-list">
+                <% books.forEach(function(book) { %>
+                    <div class="favorite-item">
+                        <a href="/home/book/<%= book.id_ksiazki %>" class="favorite-link">
+                            <div class="favorite-image">
+                                <img src="/images/books/<%= book.okladka %>" alt="<%= book.tytul %>">
+                            </div>
+                            <div class="favorite-info">
+                                <p class="favorite-title"><%= book.tytul %></p>
+                                <p class="favorite-author">Autor: <%= book.autor %></p>
+                                <p class="favorite-genre">Gatunek: <%= book.gatunek %></p>
+                                <% if (book.promocja) { %>
+                                    <p class="favorite-price">
+                                        <span class="promotion-text"><%= book.cena %> zł</span>
+                                        <span class="promotion-new-text"><%= book.promocja %> zł</span>
+                                    </p>
+                                <% } else { %>
+                                    <p class="favorite-price"><%= book.cena %> zł</p>
+                                <% } %>
+                            </div>
                         </a>
-                    </li>
-                <%});%>
-            </ul>
+                        <div class="book-buttons">
+                            <form method="POST" action="/cart/add">
+                              <input type="hidden" name="bookId" value="<%= book.id_ksiazki %>">
+                              <button type="submit" class="pill-button add-to-cart">Dodaj do koszyka</button>
+                            </form>
+                            <form method="POST" action="/favorites/toggle">
+                              <input type="hidden" name="bookId" value="<%= book.id_ksiazki %>">
+                              <button type="submit" class="pill-button add-to-favorites">Usuń z ulubionych</button>
+                            </form>
+                          </div>
+                    </div>
+                <% }); %>
+            </div>
+            
         <% } else { %>
-            <p>Brak ulubionych książek</p>    
+            <p>Brak ulubionych książek</p>
         <% } %>
     </main>
 
-    <%- include('../partials/footer') %>   
+    <%- include('../partials/footer') %>
 </body>
-
 </html>
+
