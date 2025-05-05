@@ -1,6 +1,6 @@
 <%- include('../partials/html', { 
     title : "Zamówienia",
-    styles : [ 'orders/order_list' ],
+    styles : [ 'profile/order_list' ],
 }); %>
   
   <body>
@@ -16,17 +16,25 @@
         <% if (typeof orders !== 'undefined' && orders && orders.length > 0) { %>
             <section class="order-list">
             
-            <% orders.forEach(function(order) { %>
-                <div class="order-item">
-                    <p>
-                        <strong>Numer zamówienia:</strong>
-                        <a href="/user/orders/<%= order.id_zamowienia %>" class="order-link"><%= order.id_zamowienia %></a>
-                    </p>
-
-                    <p><strong>Data złożenia:</strong> <%= order.data_zlozenia %></p>
-                    <p><strong>Kwota:</strong> <%= order.kwota.toFixed(2) %> zł</p>
-                </div>
-            <% }); %>
+                <% orders.forEach(function(order) { %>
+                    <div class="order-item">
+                      <div class="order-details">
+                        <p>
+                          <strong>Numer zamówienia:</strong>
+                          <a href="/user/orders/<%= order.id_zamowienia %>" class="order-link"><%= order.id_zamowienia %></a>
+                        </p>
+                        <p><strong>Data złożenia:</strong> <%= order.data_zlozenia %></p>
+                        <p><strong>Kwota:</strong> <%= order.kwota.toFixed(2) %> zł</p>
+                      </div>
+                  
+                      <div class="order-actions">
+                        <form method="POST" action="/user/orders/reorder/<%= order.id_zamowienia %>">
+                          <button type="submit" class="pill-button">Zamów ponownie</button>
+                        </form>
+                      </div>
+                    </div>
+                  <% }); %>
+                  
             </section>
         <% } else { %>
             <p class="no-orders-message">Nie masz jeszcze żadnych zamówień.</p>

@@ -1,0 +1,112 @@
+body {
+    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+  }
+  
+  .user-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c252b;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .order-item {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .order-details p {
+    margin: 0;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .order-details strong {
+    color: #2c252b;
+  }
+  
+  .order-link {
+    color: #ff0457;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .order-link:hover {
+    text-decoration: underline;
+    color: #b00081;
+  }
+  
+  /* Prawa kolumna z przyciskiem */
+  .order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .pill-button {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pill-button:hover {
+    background-color: #ff0457;
+  }
+  
+  .no-orders-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 4rem;
+  }
+  
+  .user-nav {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    margin: 1rem auto;
+    font-size: 1rem;
+  }
+  
