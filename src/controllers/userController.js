@@ -1,182 +1,114 @@
-const userService = require('../services/userService');
+const userModel = require('../models/userModel');
+const homeModel = require('../models/homeModel');
 
-const paths = {
-    user: 'profile/dashboard',
-    login: 'customer/login',
-    register: 'customer/register',
-    cart: 'profile/cart',
-    favorites: 'profile/favorites',
-    forgot: 'customer/forgot',
-    reset: 'customer/reset',
-    pay: 'profile/pay',
-    orderList: 'orders/order_list',
-    contact: 'profile/contact'
-};
-
-///////////////////////////////////
-//          GET METHOD           //
-///////////////////////////////////
-
-exports.registerPage = (req, res) => {
-    return res.render(paths.register);
-};
-
-exports.forgotPasswordPage = (req, res) => {
-    return res.render(paths.forgot);
-};
-
-exports.orderListPage = (req, res) => {
-    return res.render(paths.orderList);
-};
-
-exports.loginPage = async (req, res) => {
-    if (req.session.user) return res.render(paths.user);
-
-    return res.render(paths.login);
-};
-
-exports.cartPage = async (req, res) => {  
-    const { id_klienta } = req.session.user;
-    
-    try {
-        const books = await userService.getCartBooks(id_klienta);
-
-        return res.render(paths.cart, { books });
-    } catch (error) {
-        return res.render(paths.cart, { error });
-    }
-};
-
-exports.favoritesPage = async (req, res) => {
-    const { id_klienta } = req.session.user;
-    
-    try {
-        const books = await userService.getFavoritesBooks(id_klienta);
-
-        return res.render(paths.favorites, { books });
-    } catch (error) {
-        return res.render(paths.favorites, { error });
-    }
-};
-
-exports.contactPage = async (req, res) => {
-    const { id_klienta } = req.session.user;
-    
-    try {
-        const userInfo = await userService.getUserDetails(id_klienta);
-
-        return res.render(paths.contact, { userInfo });
-    } catch(error) {
-        return res.render(paths.contact, { error });
-    }
+const render = {
+    cart : 'profile/cart',
+    contact : 'profile/contact',
+    dashboard : 'profile/dashboard',
+    favorites : 'profile/favorites',
+    orderList : 'profile/order_list',
+    order : 'profile/order',
+    pay : 'profile/pay'
 }
 
-exports.logoutPage = (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.render(paths.login, { error : 'Problem z wylogowaniem.'})
-        }
-        return res.redirect('/home');
-    });
+///////////////////////////////////
+//          DASHBOARD            //
+///////////////////////////////////
+
+exports.dashboardPage = (req, res) => {
+    return res.render(render.dashboard);
 };
 
 ///////////////////////////////////
-//          POST METHOD          //
+//            ORDERS             //
 ///////////////////////////////////
 
-exports.loginHandle = async (req, res) => {    
-    const { email, haslo } = req.body;
-    
+exports.orderPage = async (req, res) => {
+    const { id : bookId } = req.params;
+    const { id : userId } = req.session.user;
+
     try {
-        const user = await userService.loginUser(email, haslo);
+        const order = await userModel.selectOrderDetails({ id_zamowienia : bookId, id_klienta : userId });
 
-        req.session.user = user;
-
-        const redirectTo = req.session.redirectTo || '/home';
-        
-        delete req.session.redirectTo;
-
-        return res.redirect(redirectTo);
+        return res.render(render.order, { order });
     } catch(error) {
-        return res.render(paths.login, { error });
+        return res.render(render.order, { error });
     }
 };
 
-exports.registerHandle = async (req, res) => { 
-    const { login, email, haslo } = req.body;
+exports.orderListPage = async (req, res) => {
+    const { id } = req.session.user;
+
+    try {
+        const orders = await userModel.selectOrdersWithFacture(id);
+
+        return res.render(render.orderList, { orders });
+    } catch(error) {
+        return res.render(render.orderList, { error });
+    }
+};
+
+///////////////////////////////////
+//           FAVORITES           //
+///////////////////////////////////
+
+exports.favoritesPage = async (req, res) => {
+    const { id } = req.session.user;
     
     try {
-        await userService.registerUser({ login, email, haslo });
+        const books = await userModel.selectFavoritesBooks(id);
 
-        return res.redirect('/user');
+        return res.render(render.favorites, { books });
     } catch (error) {
-        return res.render(paths.register, { error });
+        return res.render(render.favorites, { error });
     }
 };
 
-exports.forgotPasswordHandle = async (req, res) => {
-    const { email } = req.body;
+///////////////////////////////////
+//             CART              //
+///////////////////////////////////
+
+exports.cartPage = async (req, res) => {  
+    const { id } = req.session.user;
     
     try {
-        const data = await userService.createResetSession(email);
+        const books = await userModel.selectCartBooks(id);
 
-        req.session.resetData = { code: data.code, user: data.user };
-
-        return res.render(paths.reset, { code : data.code });
+        return res.render(render.cart, { books });
     } catch (error) {
-        return res.render(paths.forgot, { error });
+        return res.render(render.cart, { error });
     }
 };
 
-exports.resetPasswordHandle = async (req, res) => {
+exports.cartAmountHandle = async (req, res) => {  
+    const { id_ksiazki, amount } = req.body;
+    const { id } = req.session.user;
+
     try {
-        await userService.resetPassword(req.body, req.session);
+        if (!id) throw 'Musisz być zalogowany';
 
-        delete req.session.resetData;
+        const bookAmount = await homeModel.selectItemWithEq('koszyk', 'ilosc', { id_ksiazki, id_klienta : id });
 
-        return res.redirect('/user');
-    } catch (error) {
-        const code = req.session.resetData.code;
+        await homeModel.updateBook('koszyk', { 'ilosc' : (parseInt(amount) + bookAmount.ilosc)}, id_ksiazki, id);
 
-        return res.render(paths.reset, { error, code });
-    }
-};
-
-exports.handleUserItem = async (req, res) => {
-    try {
-        if (!req.session.user) throw 'Musisz być zalogowany.';
-
-        const { status, count } = await userService.getUserBookById(req.body, req.session.user);
-
-        return res.status(200).json({ status, count });
+        return res.json('Udało się');
     } catch(error) {
         return res.status(500).json(error);
     }
 };
 
-exports.cartUpdateHandle = async (req, res) => {    
+///////////////////////////////////
+//            CONTACT            //
+///////////////////////////////////
+
+exports.contactPage = async (req, res) => {
+    const { id } = req.session.user;
+    
     try {
-        if (!req.session.user) throw 'Musisz być zalogowany.';
+        const userInfo = await userModel.selectUserDetails(id);
 
-        await userService.updateCartAmount(req.body, req.session.user);
-
-        return res.json({ success: true });
+        return res.render(render.contact, { userInfo });
     } catch(error) {
-        res.status(500).json({ error: 'Błąd aktualizacji' });
+        return res.render(render.contact, { error });
     }
-};
-
-exports.cartRemoveHandle = async (req, res) => {    
-    try {
-        if (!req.session.user) throw 'Musisz być zalogowany.';
-
-        const { ids, cart } = await userService.removeUserCart(req.body, req.session.user);
-
-        req.session.user.cartIds = ids;
-        req.session.user.cart = cart;
-
-        return res.json({ success: true });
-    } catch(error) {
-        res.status(500).json({ error: 'Błąd aktualizacji' });
-    }
-};
+}

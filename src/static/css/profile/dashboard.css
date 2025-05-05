@@ -1,12 +1,25 @@
+body {
+    background-color: #f4f4f4;
+}
+
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
     align-items: center;
-    vertical-align: middle;
-    gap: 2em;
-    padding: 2rem 2rem 4rem;
+}
+
+.panel {
+    width: fit-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 4.5rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 main h1 {

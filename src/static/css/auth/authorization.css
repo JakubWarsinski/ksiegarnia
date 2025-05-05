@@ -38,7 +38,7 @@ h1 {
     gap: 1.5em;
 }
 
-.login-form div {
+.login-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,4 +95,16 @@ main a {
 
 .login-container a:hover {
     text-decoration: underline;
+}
+
+.inputs {
+    display: flex;
+    gap: 0.4em;
+}
+
+.inputs input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
 }

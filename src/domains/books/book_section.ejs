@@ -4,15 +4,15 @@
     <div class="book-grid" id="<%= id %>-grid">
         <% if (typeof books !== undefined && books) { %>
             <% books.forEach((book, index) => { %>
-                <article class="book-card" data-index="<%= index %>" data-id="<%= book.id_ksiazki %>">
+                <article class="book-card" data-index="<%= index %>">
                     <%- include('book_short', { book }) %>
                     
                     <div class="button-collection" <% if (typeof user !== 'undefined' && user) { %> style="display: flex; justify-content: space-between;" <% } %>>
-                        <a href="/home/book/<%= book.id_ksiazki %>" class="check-button">SPRAWDŹ</a>
+                        <a href="/home/book/<%= book.id_ksiazki %>" class="check-button">Sprawdź</a>
                         
                         <% if (typeof user !== 'undefined' && user) { %>
-                            <button class="specialButton <% if (user.favIds.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" id="button-favorite<%=index%>" data-id="<%= book.id_ksiazki %>" data-path="ulubione_ksiazki" data-item="favorites" data-table="favIds" data-counter="user-fav-count"><i class="fa-solid fa-heart"></i></button>
-                            <button class="specialButton <% if (user.cartIds.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" id="button-cart<%=index%>" data-id="<%= book.id_ksiazki %>" data-path="koszyk" data-item="cart" data-table="cartIds" data-counter="user-cart-count"><i class="fa-solid fa-basket-shopping"></i></button>
+                            <button class="specialButton <% if (user.favoriteBooks.includes(book.id_ksiazki)) {%>specialButtonActive<%}%> favoriteButton" data-id="<%= book.id_ksiazki %>" onclick="addFavoriteBook(`<%= book.id_ksiazki %>`)"><i class="fa-solid fa-heart"></i></button>
+                            <button class="specialButton <% if (user.cartBooks.includes(book.id_ksiazki)) {%>specialButtonActive<%}%> cartButton" data-id="<%= book.id_ksiazki %>" onclick="addCartBook(`<%= book.id_ksiazki %>`)"><i class="fa-solid fa-basket-shopping"></i></button>
                         <% } %>
                     </div>
                 </article>
@@ -21,7 +21,7 @@
     </div>
   
     <div class="section-button">
-      <button id="<%= id %>-prev" class="section-button-btn">‹</button>
-      <button id="<%= id %>-next" class="section-button-btn">›</button>
+        <button id="<%= id %>-prev" class="section-button-btn">‹</button>
+        <button id="<%= id %>-next" class="section-button-btn">›</button>
     </div>
 </section>

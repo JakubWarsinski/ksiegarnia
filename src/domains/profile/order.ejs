@@ -1,0 +1,19 @@
+<% if (typeof error !== 'undefined' && error) { %>
+    <p><%= error %></p>
+<% } %>
+
+<% if (typeof order !== 'undefined' && order) { %>
+    <p><%= order.id_zamowienia %></p>
+    <p><%= order.data_zamowienia %></p>
+    <p><%= order.dostawa %></p>
+    <p><%= order.kwota %></p>
+    <ul>
+        <% order.ksiazki.forEach(function(ksiazka) { %>
+            <li>
+                <p><%= ksiazka.id_ksiazki %></p>
+                <p><%= ksiazka.tytul %></p>
+                <p><%= ksiazka.ilosc %></p>
+            </li>
+        <% }); %>
+    </ul>
+<% } %>

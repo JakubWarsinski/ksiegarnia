@@ -6,19 +6,16 @@ const { sessionDataMiddleware } = require('../middlewares/sessionMiddleware');
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
-
 router.use(sessionDataMiddleware);
 
 ///////////////////////////////////
 //          GET METHOD           //
 ///////////////////////////////////
 
-router.get('/', userController.loginPage);
-router.get('/new', userController.registerPage);
+router.get('/dashboard', isAuthenticated, userController.dashboardPage)
 router.get('/cart', isAuthenticated, userController.cartPage);
-router.get('/forgot', userController.forgotPasswordPage);
-router.get('/logout', isAuthenticated, userController.logoutPage);
 router.get('/orders', isAuthenticated, userController.orderListPage);
+router.get('/orders/:id', isAuthenticated, userController.orderPage);
 router.get('/contact', isAuthenticated, userController.contactPage);
 router.get('/favorites', isAuthenticated, userController.favoritesPage);
 
@@ -26,12 +23,6 @@ router.get('/favorites', isAuthenticated, userController.favoritesPage);
 //          POST METHOD          //
 ///////////////////////////////////
 
-router.post('/', userController.loginHandle);
-router.post('/new', userController.registerHandle);
-router.post('/forgot', userController.forgotPasswordHandle);
-router.post('/reset', userController.resetPasswordHandle);
-router.post('/add_item', userController.handleUserItem);
-router.post('/update_cart', userController.cartUpdateHandle);
-router.post('/remove_cart', userController.cartRemoveHandle);
+router.post('/cart_amount', userController.cartAmountHandle);
 
 module.exports = router;

@@ -1,24 +1,24 @@
-/* Główna sekcja */
+body {
+    background-color: #f4f4f4;
+}
+
 main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 3rem 1rem;
-    background-color: #f9f9f9;
-    min-height: calc(100vh - 300px);
-  }
+    padding: 2em;
+}
   
-  /* Lista ulubionych */
-  .favorites-list {
+.favorites-list {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     width: 100%;
     max-width: 1000px;
-  }
-  
-  /* Pojedyncza książka */
-  .favorite-item {
+}
+
+.favorite-item {
     display: flex;
     align-items: flex-start;
     background-color: #fff;
@@ -26,18 +26,18 @@ main {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     padding: 1.5rem;
     gap: 2rem;
-  }
+}
   
-  .favorite-link {
-    display: flex;
-    text-decoration: none;
-    color: inherit;
-    gap: 2rem;
-    width: 100%;
-  }
+.favorite-link {
+display: flex;
+text-decoration: none;
+color: inherit;
+gap: 2rem;
+width: 100%;
+}
   
   /* Okładka */
-  .favorite-image img {
+  .favorite-item img {
     width: 150px;
     height: auto;
     border-radius: 8px;
@@ -85,6 +85,7 @@ main {
   .book-buttons {
     display: flex;
     flex-wrap: wrap;
+    justify-content: right;
     gap: 0.5rem;
     margin-top: 1rem;
   }

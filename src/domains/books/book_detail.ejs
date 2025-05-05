@@ -1,24 +1,11 @@
 <%- include('../partials/html', { 
     title : "Książka",
-    styles : [ 'books/book_detail', 'books/genres', 'books/promotion' ],
+    styles : [ 'books/book_detail', 'books/genres', 'books/promotion', 'books/special_buttons' ],
+    scripts : [ 'home/add_user_book' ]
 }); %>
 
 <body>
     <%- include('../partials/header') %>
-
-    <% 
-        let author = null;
-        let price = null;
-        let promotion = null;
-        let discountedPrice = null;
-
-        if (typeof book !== 'undefined' && book) {
-            author = `${book.autor.imie} ${book.autor.nazwisko}`;
-            price = book.cena;
-            promotion = book.promocja;
-            discountedPrice = promotion ? (price * (promotion / 100)).toFixed(2) : null; 
-        }
-    %>
 
     <main>
         <% if (typeof error !== 'undefined' && error) { %>
@@ -33,7 +20,7 @@
             <div class="book-info">
                 <h1><%= book.tytul %></h1>
                 
-                <p><strong>Autor:</strong> <%= author %></p>
+                <p><strong>Autor:</strong> <%= book.autor.imie %> <%= book.autor.nazwisko %></p>
                 <p><strong>Opis:</strong> <%= book.opis %></p>
                 <p><strong>Gatunki:</strong></p>
                 
@@ -47,24 +34,21 @@
                 <p><strong>Na stanie:</strong> <%= book.ilosc_na_stanie %></p>
     
                 <p><strong>Cena:</strong> 
-                    <% if (discountedPrice) { %>
-                        <s class="promotion-text"><%= price %> zł</s> 
-                        <span class="promotion-new-text"><%= discountedPrice %> zł</span>
+                    <% if (book.promocja) { %>
+                        <s class="promotion-text"><%= book.cena %> zł</s> 
+                        <span class="promotion-new-text"><%= book.promocja %> zł</span>
                     <% } else { %>
-                        <%= price %> zł
+                        <%= book.cena %> zł
                     <% } %>
                 </p>
             </div>
             
-            <div class="book-buttons">
-                <form action="/cart/add/<%= book.id_ksiazki %>" method="POST">
-                    <button type="submit" class="pill-button add-to-cart">Do koszyka</button>
-                </form>
-            
-                <form action="/favorites/add/<%= book.id_ksiazki %>" method="POST">
-                    <button type="submit" class="pill-button add-to-favorites">Dodaj do ulubionych</button>
-                </form>
-            </div>
+            <% if (typeof user !== 'undefined' && user) { %>
+                <div class="book-buttons">
+                        <button type="submit" class="pill-button add-to-cart cartButton <% if (user.cartBooks.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" data-id="<%= book.id_ksiazki %>" onclick="addCartBook(`<%= book.id_ksiazki %>`)">Do koszyka</button>
+                        <button type="submit" class="pill-button add-to-favorites favoriteButton <% if (user.favoriteBooks.includes(book.id_ksiazki)) {%>specialButtonActive<%}%>" data-id="<%= book.id_ksiazki %>" onclick="addFavoriteBook(`<%= book.id_ksiazki %>`)">Dodaj do ulubionych</button>
+                </div>
+            <% } %>
         <% } %>
     </main>
 

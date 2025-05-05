@@ -18,7 +18,7 @@
                 <div class="special-button">
                     <i class="fa-solid fa-basket-shopping"></i>
                     <% if (typeof user !== 'undefined' && user) { %>
-                        <span class="circle-count" id="user-cart-count"><%= user.cart %></span>
+                        <span class="circle-count" id="user-cart-count"><%= user.cartAmount %></span>
                     <% } %>
                 </div>
                 <p>Koszyk</p>
@@ -28,13 +28,13 @@
                 <div class="special-button">
                     <i class="fa-solid fa-heart"></i>
                     <% if (typeof user !== 'undefined' && user) { %>
-                        <span class="circle-count" id="user-fav-count"><%= user.favorites %></span>
+                        <span class="circle-count" id="user-fav-count"><%= user.favoriteAmount %></span>
                     <% } %>
                 </div>
                 <p>Ulubione</p>
             </a>
 
-            <a href="/user">
+            <a href="/auth">
                 <i class="fa-solid fa-user"></i>
                 <p><% if (typeof user !== 'undefined' && user) { %><%= user.login %><% } else { %>Zaloguj<% } %></p>
             </a>

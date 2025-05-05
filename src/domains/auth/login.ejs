@@ -1,7 +1,6 @@
 <%- include('../partials/html', { 
     title : "Logowanie",
-    styles : [ 'customer/panel' ], 
-    scripts :[ 'header' ]
+    styles : [ 'auth/authorization' ], 
 }); %>
 
 <body>
@@ -15,23 +14,23 @@
                 <p class="error"><%= error %></p>
             <% } %>
 
-            <form action="/user" method="POST" class="login-form">
-                <div>
+            <form action="/auth" method="POST" class="login-form">
+                <div class="login-div">
                     <label for="email">E-mail*</label>
                     <input type="text" id="email" name="email" required>
                 </div>
 
-                <div>
+                <div class="login-div">
                     <label for="password">Hasło*</label>
-                    <input type="password" id="password" name="haslo" required>
+                    <input type="password" id="password" name="password" required>
                 </div>
 
                 <button type="submit">Zaloguj</button>
             </form>
 
             <div class="button-section">
-                <p>Nie masz jeszcze konta? <a href="/user/new">Zarejestruj się</a></p>
-                <p>Zapomniałeś hasła? <a href="/user/forgot">Zresetuj je</a></p>
+                <p>Nie masz jeszcze konta? <a href="/auth/new">Zarejestruj się</a></p>
+                <p>Zapomniałeś hasła? <a href="/auth/forgot">Zresetuj je</a></p>
             </div>
         </div>
     </main>

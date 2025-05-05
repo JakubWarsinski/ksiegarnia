@@ -1,41 +1,38 @@
-<% if (typeof book !== undefined && book) { %>
-    <% 
-        const truncateText = (text, maxLength) => text.length > maxLength ? text.slice(0, maxLength - 3) + '...' : text;
+<% 
+    const truncateText = (text, maxLength) => text.length > maxLength ? text.slice(0, maxLength - 3) + '...' : text;
 
-        const author = `${book.autor.imie} ${book.autor.nazwisko}`;
-        
-        const truncatedTitle = truncateText(book.tytul, 26);
-        const truncatedAuthor = truncateText(author, 30);
+    const author = `${book.autor.imie} ${book.autor.nazwisko}`;
+    
+    const truncatedTitle = truncateText(book.tytul, 26);
+    const truncatedAuthor = truncateText(author, 30);
 
-        const genres = book.gatunki.slice(0, 2);
-        
-        const price = book.cena;
-        const promotion = book.promocja;
-        const discountedPrice = promotion ? (price * (promotion / 100)).toFixed(2) : null;
-    %>
+    const genres = book.gatunki.slice(0, 2);
+    
+    const price = book.cena;
+    const promotion = book.promocja;
+%>
 
-    <h4 title="<%= book.tytul %>"><%= truncatedTitle %></h4>
-    <img src='/images/books/<%= book.okladka %>' alt='<%= book.okladka %>'>
+<h4 title="<%= book.tytul %>"><%= truncatedTitle %></h4>
+<img src='/images/books/<%= book.okladka %>' alt='<%= book.okladka %>'>
 
-    <ul>
-        <li title="<%= author %>"><strong>Autor:</strong> <%= truncatedAuthor %></li>
+<ul>
+    <li title="<%= author %>"><strong>Autor:</strong> <%= truncatedAuthor %></li>
 
-        <li>
-            <strong>Gatunki:</strong>
-            <br>
-            <% genres.forEach(function(genre) { %>
-                <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span><br>
-            <% }); %>
-        </li>
+    <li>
+        <strong>Gatunki:</strong>
+        <br>
+        <% genres.forEach(function(genre) { %>
+            <span class="gatunek-tag <%= genre.toLowerCase().replace(/\s/g, '-') %>"><%= genre %></span><br>
+        <% }); %>
+    </li>
 
-        <li class="book-price">
-            <strong>Cena:</strong> 
-            <% if (discountedPrice) { %>
-                <s class="promotion-text"><%= price %> zł</s> 
-                <span class="promotion-new-text"><%= discountedPrice %> zł</span>
-            <% } else { %>
-                <%= price %> zł
-            <% } %>
-        </li>
-    </ul>
-<% } %>
+    <li class="book-price">
+        <strong>Cena:</strong> 
+        <% if (promotion) { %>
+            <s class="promotion-text"><%= price %> zł</s> 
+            <span class="promotion-new-text"><%= promotion %> zł</span>
+        <% } else { %>
+            <%= price %> zł
+        <% } %>
+    </li>
+</ul>
