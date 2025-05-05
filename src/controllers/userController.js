@@ -112,3 +112,17 @@ exports.contactPage = async (req, res) => {
         return res.render(render.contact, { error });
     }
 }
+
+///////////////////////////////////
+//            PAYMENT            //
+///////////////////////////////////
+
+exports.payPage = async (req, res) => {
+    const { id } = req.session.user;
+    
+    try {
+        return res.render(render.pay);
+    } catch(error) {
+        return res.render(render.pay, { error });
+    }
+}

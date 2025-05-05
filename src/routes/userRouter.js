@@ -18,6 +18,7 @@ router.get('/orders', isAuthenticated, userController.orderListPage);
 router.get('/orders/:id', isAuthenticated, userController.orderPage);
 router.get('/contact', isAuthenticated, userController.contactPage);
 router.get('/favorites', isAuthenticated, userController.favoritesPage);
+router.get('/pay', isAuthenticated, userController.payPage);
 
 ///////////////////////////////////
 //          POST METHOD          //
