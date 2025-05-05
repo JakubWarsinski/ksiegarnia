@@ -2,9 +2,7 @@
   "name": "ksiegarnia",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "postinstall": "npm rebuild bcrypt --build-from-source"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",

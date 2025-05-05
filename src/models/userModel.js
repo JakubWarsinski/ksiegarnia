@@ -52,7 +52,7 @@ exports.selectOrderDetails = async (input) => {
 exports.selectFavoritesBooks = async (id_klienta) => {    
     const { data, error } = await supabase
         .from('ksiazki')
-        .select(`${bookSelect}, ulubione_ksiazki()`)
+        .select(`${bookSelect}, opis, ulubione_ksiazki()`)
         .match({'ulubione_ksiazki.id_klienta' : id_klienta, 'ulubione_ksiazki.posiadane' : true})
         .not('ulubione_ksiazki', 'is', null)
         .order('id_ksiazki', { ascending: true });
@@ -65,6 +65,7 @@ exports.selectFavoritesBooks = async (id_klienta) => {
             tytul: ksiazka.tytul,
             okladka: ksiazka.okladka,
             cena: ksiazka.cena,
+            opis: ksiazka.opis.length > 100 ? ksiazka.opis.slice(0, 97) + '...' : ksiazka.opis,
             promocja: parseFloat((ksiazka.cena * (ksiazka.promocja / 100)).toFixed(2)),
             autor: ksiazka.autorzy,
             gatunki: ksiazka.gatunki_ksiazki.map(gk => gk.gatunki.gatunek),
