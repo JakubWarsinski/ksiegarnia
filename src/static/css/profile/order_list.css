@@ -66,7 +66,6 @@ body {
     color: #b00081;
   }
   
-  /* Prawa kolumna z przyciskiem */
   .order-actions {
     display: flex;
     flex-direction: column;
@@ -88,7 +87,8 @@ body {
   }
   
   .pill-button:hover {
-    background-color: #ff0457;
+    background-color: #ff0457ff;
+    color: #fff;
   }
   
   .no-orders-message {

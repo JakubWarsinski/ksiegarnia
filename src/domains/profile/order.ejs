@@ -1,19 +1,56 @@
-<% if (typeof error !== 'undefined' && error) { %>
-    <p><%= error %></p>
-<% } %>
+<%- include('../partials/html', { 
+    title : "Zamówienia",
+    styles : [ 'orders/single_order' ]
+  }); %>
+  
+  <body>
+    <%- include('../partials/header') %>
+  
+    <main>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
 
-<% if (typeof order !== 'undefined' && order) { %>
-    <p><%= order.id_zamowienia %></p>
-    <p><%= order.data_zamowienia %></p>
-    <p><%= order.dostawa %></p>
-    <p><%= order.kwota %></p>
-    <ul>
-        <% order.ksiazki.forEach(function(ksiazka) { %>
-            <li>
-                <p><%= ksiazka.id_ksiazki %></p>
-                <p><%= ksiazka.tytul %></p>
-                <p><%= ksiazka.ilosc %></p>
-            </li>
-        <% }); %>
-    </ul>
-<% } %>
+  <% if (typeof order !== 'undefined' && order) { %>
+<h1 class="order-heading">Zamówienie nr: <%= order.id_zamowienia %></h1>
+
+<div class="order-summary">
+  <div class="order-info-block">
+    <p><strong>Data zamówienia:</strong> <%= order.data_zamowienia %></p>
+    <p><strong>Dostawa:</strong> <%= order.dostawa %></p>
+    <p><strong>Łączna kwota:</strong> <%= order.kwota %> zł</p>
+  </div>
+
+  <form action="/user/reorder/<%= order.id_zamowienia %>" method="POST">
+    <button type="submit" class="reorder-button">Zamów ponownie</button>
+  </form>
+</div>
+
+<ul class="order-list">
+  <% order.ksiazki.forEach(function(ksiazka) { %>
+    <li class="order-item">
+      <div class="order-link">
+        <img src="/images/books/<%= ksiazka.okladka %>" alt="<%= ksiazka.tytul %>" class="order-image">
+        <div class="order-info">
+          <p class="order-title"><%= ksiazka.tytul %></p>
+          <p class="order-price"><strong>Cena:</strong> <%= ksiazka.cena %> zł</p>
+          <p class="order-quantity"><strong>Ilość:</strong> <%= ksiazka.ilosc %></p>
+        </div>
+      </div>
+    </li>
+  <% }); %>
+</ul>
+
+  <% } else { %>
+    <p class="order-empty">Brak danych o zamówieniu.</p>
+  <% } %>
+</main>
+
+  
+    <%- include('../partials/footer') %>
+  </body>
+  </html>
+  
+  
+      
+ 
