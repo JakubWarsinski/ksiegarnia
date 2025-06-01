@@ -1,0 +1,88 @@
+<%- include('../partials/html', {
+    title : 'Dane kontaktowe',
+    styles : [ 'user/contact' ],
+    scripts : [ 'user/update_user_data' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Dane kontaktowe</h2>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <div id="data" class="user-data">
+                <div class="info">
+                    <p><strong>Imię: </strong><span data-field="imie"><%= dataMap.imie %></span></p>
+                    <p><strong>Nazwisko: </strong><span data-field="nazwisko"><%= dataMap.nazwisko %></span></p>
+                    <p><strong>Numer telefonu: </strong><span data-field="nr_telefonu"><%= dataMap.nr_telefonu %></span></p>
+                    <p><strong>Miejscowość: </strong><span data-field="miejscowosc"><%= dataMap.miejscowosc %></span></p>
+                    <p><strong>Ulica: </strong><span data-field="ulica"><%= dataMap.ulica %></span></p>
+                    <p><strong>Numer mieszkania: </strong><span data-field="nr_mieszkania"><%= dataMap.nr_mieszkania %></span></p>
+                    <p><strong>Numer lokalu: </strong><span data-field="nr_lokalu"><% if (dataMap.nr_lokalu) { %><%= dataMap.nr_lokalu %><% } %></span></p>
+                    <p><strong>Kod pocztowy: </strong><span data-field="kod_pocztowy"><%= dataMap.kod_pocztowy %></span></p>
+                </div>
+
+                <div class="data-buttons">
+                    <button class="button" id="show-inputs">Zmień dane</button>
+                    <a href="/user/dashboard"><button class="button">Powrót</button></a>
+                </div>
+            </div>
+
+            <div id="data-inputs">
+                <form id="form-contact" class="form-table" action="/user/contact" method="POST" autocomplete="off">
+                    <section>
+                        <label for="name">Imię:</label>
+                        <input type="text" id="name" name="name" placeholder="..." value="<%= dataMap.imie %>">
+                    </section>
+
+                    <section>
+                        <label for="surname">Nazwisko:</label>
+                        <input type="text" id="surname" name="surname" placeholder="..." value="<%= dataMap.nazwisko %>">
+                    </section>
+
+                    <section>
+                        <label for="phone">Numer telefonu:</label>
+                        <input type="text" minlength="9" id="phone" name="phone" placeholder="..." value="<%= dataMap.nr_telefonu %>">
+                    </section>
+
+                    <section>
+                        <label for="city">Miejscowość:</label>
+                        <input type="text" id="city" name="city" placeholder="..." value="<%= dataMap.miejscowosc %>">
+                    </section>
+
+                    <section>
+                        <label for="street">Adres:</label>
+                        <div class="inputs">
+                            <input type="text" id="street" name="street" placeholder="..." value="<%= dataMap.ulica %>">
+                            <input type="text" class="special-input" id="home" name="home" placeholder="..." value="<%= dataMap.nr_mieszkania %>">
+                            <p>/</p>
+                            <input type="text" class="special-input" id="door" name="door" placeholder="..." value="<%= dataMap.nr_lokalu %>">
+                        </div>
+                    </section>
+                    <section>
+                        <label for="code">Kod pocztowy:</label>
+                        <div class="inputs" id="code-buttons">
+                            <input type="text" id="code-left" class="special-input" placeholder="_ _" value="<%= dataMap.code[0] %>" data-amount="2">
+                            <p>-</p>
+                            <input type="text" id="code-right" class="special-input" placeholder="_ _ _" value="<%= dataMap.code[1] %>" data-amount="3">
+                            <input type="text" hidden id="code" name="code" placeholder="..." value="<%= dataMap.kod_pocztowy %>">
+                        </div>
+                    </section>
+                    
+                    <div class="data-buttons">
+                        <button class="button" type="submit">Aktualizuj</button>
+                        <button class="button" type="button" id="show-data">Anuluj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

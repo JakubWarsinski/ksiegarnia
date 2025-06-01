@@ -1,0 +1,24 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "online bookstore where we can buy books",
+  "main": "",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "books",
+    "book",
+    "bookstore",
+    "mdk"
+  ],
+  "author": "Jakub Warsiński",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "sqlite3": "^5.1.7"
+  }
+}

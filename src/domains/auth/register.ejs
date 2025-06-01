@@ -1,0 +1,44 @@
+<%- include('../partials/html', {
+    title : 'Rejestracja',
+    styles : [ 'auth/main' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Zarejestruj się</h2>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/auth/register" method="POST" autocomplete="off">
+                <section>
+                    <label for="login">Login*</label>
+                    <input type="text" placeholder="..." name="login" required id="login" autocomplete="off">
+                </section>
+                
+                <section>
+                    <label for="email">E-mail*</label>
+                    <input type="email" placeholder="..." name="email" required id="email" autocomplete="off">
+                </section>
+
+                <section>
+                    <label for="password">Hasło*</label>
+                    <input type="password" placeholder="..." name="password" required id="password" autocomplete="new-password">
+                </section>
+
+                <button>Zarejestruj</button>
+            </form>
+
+            <div class="main-info">
+                <p>Masz już konto? <a href="/auth/login">Zaloguj się</a></p>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

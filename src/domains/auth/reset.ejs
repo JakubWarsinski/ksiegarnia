@@ -1,0 +1,54 @@
+<%- include('../partials/html', {
+    title : 'Reset Hasła',
+    styles : [ 'auth/main' ],
+    scripts : [ 'auth/reset']
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Zresetuj hasło</h2>
+
+            <% if (typeof code !== 'undefined' && code) { %>
+                <p>Twój kod: <strong><%= code %></strong></p>
+            <% } %>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/auth/reset" method="POST" id="form-reset" autocomplete="off">
+                <section>
+                    <label>Kod*</label>
+                    
+                    <div class="inputs" id="inputList">
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="0" required placeholder="*" />
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="1" required placeholder="*"/>
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="2" required placeholder="*"/>
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="3" required placeholder="*"/>
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="4" required placeholder="*"/>
+                        <input type="text" inputmode="numeric" maxlength="1" data-id="5" required placeholder="*"/>
+                    </div>
+                </section>
+
+                <input type="hidden" name="code" id="code" />
+                
+                <section>
+                    <label for="passwordInput">Hasło*</label>
+                    <input type="password" placeholder="..." name="password" id="passwordInput" required autocomplete="new-password">
+                </section>
+
+                <button>Zresetuj hasło</button>
+            </form>
+
+            <div class="main-info">
+                <p>Wróć na stronę <a href="/auth/login">logowania</a></p>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

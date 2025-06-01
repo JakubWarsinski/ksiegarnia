@@ -1,0 +1,33 @@
+<%- include('../partials/html', {
+    title : 'Zamówienie',
+    styles : [ 'user/order' ],
+    scripts : [ 'renderListOfObjects' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Zamówienie nr. <strong>#<%= orderData.id_zamowienia %></strong></h2>
+
+            <div class="order-info">
+                <p><strong>Kwota:</strong> <%= orderData.cena %> PLN</p>
+                <p><strong>Płatność:</strong> <%= orderData.platnosc %></p>
+                <p><strong>Dostawa:</strong> <%= orderData.dostawa %></p>
+                <p><strong>Adres:</strong> <%= orderData.destiny %></p>
+                <p class="date"><strong>Data:</strong> <%= orderData.data_utworzenia %></p>
+            </div>
+
+            <ul id="list"></ul>
+
+            <div class="order-footer">
+                <a href="/user/order_list" class="button">Powrót</a>
+                <a class="button" id="add-items" data-type="order" data-id="<%= orderData.id_zamowienia %>">Kolejne zamówienia</a>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<%- include('../partials/html', {
+    title : 'Autorzy',
+    styles : [ 'home/sub_pages' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Lista gatunków</h2>
+
+            <ul>
+                <% if ( typeof authors !== 'undefined' && authors ) { %>
+                    <% authors.forEach(function(author) { %>
+                        <li><a href="/home/search?author=<%= author.id_autora %>"><%= author.imie %> <%= author.nazwisko %></a></li>
+                    <% }); %>
+                <% } %>
+            </ul>
+
+            <a href="/home" class="button">Powrót</a>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

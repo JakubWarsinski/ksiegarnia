@@ -1,0 +1,117 @@
+.container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    padding: 2em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    min-width: 400px;
+    margin: 6em 0;
+}
+
+.container h2 {
+    font-size: 1.9em;
+    text-align: center;
+}
+
+.user-data {
+    display: flex;
+    flex-direction: column; 
+    gap: 2.5em;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.user-data p {
+    padding: 1em 0;
+    border-bottom: 1px solid grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-data strong {
+    text-align: left;
+}
+
+.user-data span {
+    text-align: right;
+}
+
+.container form {
+    display: flex;
+    gap: 2.5em;
+    flex-direction: column;
+}
+
+.container form section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.container form label {
+    font-size: 0.9em;
+    text-align: left;
+    font-weight: bold;
+}
+
+.container form input {
+    font-size: 0.9em;
+    padding: 0.5em 0.6em;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.inputs p {
+    font-size: 1.5em;
+    align-content: center;
+}
+
+.special-input {
+    width: 60px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.6em 1em;
+    border: none;
+    outline: none;
+    border: none;
+    outline: none;
+    border-radius: 360px;
+    font-size: 1em;
+    background-color: #ff0000ff;
+    color: white;
+    letter-spacing: 0.1em;
+    transition: all 0.1s ease;
+}
+
+.button:hover { 
+    transform: scale(1.05);
+    background-color: #ff9e0fff;
+}
+
+.data-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    justify-content: center;
+}

@@ -1,0 +1,21 @@
+<% books.forEach(book => { %>
+    <li class="list-element">
+        <img src="/static/img/books/<%= book.okladka %>">
+        
+        <ul>
+            <li><p><strong>Tytuł: </strong><%= book.tytul %></p></li>
+            <li><p><strong>Autor: </strong><%= book.imie %>  <%= book.nazwisko %></p></li>
+            <li><p><strong>Gatunki: </strong><%= book.gatunki %></p></li>
+            <li><p><strong>Cena: </strong><%= book.cena %> PLN</p></li>
+        </ul>
+
+        <section>
+            <a href="/home/book/<%= book.id_ksiazki %>" class="button">Szczegóły</a>
+
+            <% if ( typeof user !== 'undefined' && user ) { %>
+                <button class="button" data-book="<%= book.id_ksiazki %>">Dodaj do koszyka</button>
+                <button class="button" data-book="<%= book.id_ksiazki %>">Dodaj do ulubionych</button>
+            <% } %>
+        </section>
+    </li>
+<% }) %>

@@ -1,0 +1,37 @@
+<%- include('../partials/html', {
+    title : 'Książka',
+    styles : [ 'home/book' ],
+    scripts : [ 'storage/update_storage' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2><%= book.tytul %></h2>
+
+            <div class="book-info">
+                <img src="/static/img/books/<%= book.okladka %>">
+                <ul>
+                    <li><p><strong>Opis: </strong> <%= book.opis %></p></li>
+                    <li><p><strong>Autor: </strong> <%= book.imie %> <%= book.nazwisko %></p></li>
+                    <li><p><strong>Gatunki: </strong> <%= book.gatunki %></p></li>
+                    <li><p><strong>Ilość strona: </strong> <%= book.ilosc_stron %></p></li>
+                    <li><p><strong>Ilość na składzie: </strong> <%= book.ilosc_na_stanie %></p></li>
+                    <li><p class="price"><strong>Cena: </strong><%= book.cena %> PLN</p></li>
+                </ul>
+
+                <% if ( typeof user !== 'undefined' && user ) { %>
+                    <section>
+                        <button class="button storage-button" data-book="<%= book.id_ksiazki %>" data-type="car" data-value="1">Dodaj do koszyka</button>
+                        <button class="button storage-button" data-book="<%= book.id_ksiazki %>" data-type="fav" data-value="1">Dodaj do ulubionych</button>
+                    </section>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

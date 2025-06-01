@@ -1,0 +1,87 @@
+<%- include('../partials/html', {
+    title : 'Zapłata',
+    styles : [ 'user/payment' ],
+    scripts : [ 'user/check_payment_data' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Zapłata za książki</h2>
+            
+            <div class="user-data">
+                <div class="info" id="data">
+                    <p><strong>Imię: </strong><span data-field="imie"><%= userData.imie %></span></p>
+                    <p><strong>Nazwisko: </strong><span data-field="nazwisko"><%= userData.nazwisko %></span></p>
+                    <p><strong>Numer telefonu: </strong><span data-field="nr_telefonu"><%= userData.nr_telefonu %></span></p>
+                    <p><strong>Miejscowość: </strong><span data-field="miejscowosc"><%= userData.miejscowosc %></span></p>
+                    <p><strong>Ulica: </strong><span data-field="ulica"><%= userData.ulica %></span></p>
+                    <p><strong>Numer mieszkania: </strong><span data-field="nr_mieszkania"><%= userData.nr_mieszkania %></span></p>
+                    <p><strong>Numer lokalu: </strong><span data-field="nr_lokalu"><% if (userData.nr_lokalu) { %><%= userData.nr_lokalu %><% } %></span></p>
+                    <p><strong>Kod pocztowy: </strong><span data-field="kod_pocztowy"><%= userData.kod_pocztowy %></span></p>
+                </div>
+
+                <div class="data-buttons">
+                    <button class="button" id="change-data">Zmień dane</button>
+                </div>
+            </div>
+
+            <form id="form-contact" action="/user/payment" method="POST" autocomplete="off">
+                <div id="hidden-inputs">
+                    <input type="hidden" name="imie" id="imie-input" value="<%= userData.imie %>" required>
+                    <input type="hidden" name="nazwisko" id="nazwisko-input" value="<%= userData.nazwisko %>" required>
+                    <input type="hidden" name="nr_telefonu" id="nr_telefonu-input" value="<%= userData.nr_telefonu %>" required>
+                    <input type="hidden" name="miejscowosc" id="miejscowosc-input" value="<%= userData.miejscowosc %>" required>
+                    <input type="hidden" name="ulica" id="ulica-input" value="<%= userData.ulica %>" required>
+                    <input type="hidden" name="nr_mieszkania" id="nr_mieszkania-input" value="<%= userData.nr_mieszkania %>" required>
+                    <input type="hidden" name="nr_lokalu" id="nr_lokalu-input" value="<%= userData.nr_lokalu %>">
+                    <input type="hidden" name="kod_pocztowy" id="kod_pocztowy-input" value="<%= userData.kod_pocztowy %>" required>
+                </div>
+                
+                <section>
+                    <h2>Wybierz metodę przesyłki*</h2>
+                    <div class="option-group">
+                        <% if (typeof delivery !== 'undefined' && delivery.length) { %>
+                            <% delivery.forEach(function(option, i) { %>
+                                <label class="custom-option">
+                                    <input type="radio" name="delivery" style="display: none;" value="<%= option.id_dostawy %>" required>
+                                    <div class="option-content">
+                                        <strong><%= option.nazwa %></strong>
+                                        <div><b>Opis: </b><%= option.opis %></div>
+                                        <div><b>Cena: </b><%= option.cena %> PLN</div>
+                                        <div><b>Czas: </b><%= option.czas %></div>
+                                    </div>
+                                </label>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Wybierz metodę zapłaty*</h2>
+                    <select name="payment" id="payment" class="styled-select" required>
+                        <% if (typeof payment !== 'undefined' && payment && payment.length) { %>
+                            <% payment.forEach(function(option) { %>
+                                <option value="<%= option.id_platnosci %>">
+                                    <%= option.nazwa %>
+                                </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </section>
+
+                <p class="payment-box"><strong>Łączna kwota:</strong> <b id="price"><%= finalPrice %></b> <b>PLN</b></p>
+
+                <div class="input-buttons">
+                    <button type="submit" class="button">Zapłać</button>
+                    <a href="/user/cart"><button class="button" type="button">Anuluj</button></a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

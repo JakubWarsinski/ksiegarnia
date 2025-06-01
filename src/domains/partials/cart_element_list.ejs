@@ -1,0 +1,20 @@
+<% books.forEach(cart => { %>
+    <li class="list-element" data-index="<%= cart.index %>" data-price="<%= cart.cena %>" data-book="<%= cart.id_ksiazki %>" data-storage="<%= cart.id_schowka %>">
+        <img src="/static/img/books/<%= cart.okladka %>">
+        
+        <section class="book-center">
+            <h3><%= cart.tytul %></h3>
+            <p><strong>Cena: </strong><%= cart.cena %> PLN</p>
+            <div class="input-button">
+                <button id="decrease-button-<%= cart.index %>" data-value="-1"><</button>
+                <input min="1" id="amount-button-<%= cart.index %>" value="<%= cart.ilosc %>">
+                <button id="increase-button-<%= cart.index %>" data-value="1">></button>
+            </div>
+        </section>
+        
+        <section class="book-right">
+            <a href="/home/book/<%= cart.id_ksiazki %>" class="button">Szczegóły</a>
+            <a class="button" id="remove-button-<%= cart.index %>">Usuń</a>
+        </section>
+    </li>
+<% }) %>

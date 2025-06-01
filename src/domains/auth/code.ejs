@@ -1,0 +1,34 @@
+<%- include('../partials/html', {
+    title : 'Reset Hasła',
+    styles : [ 'auth/main' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Zresetuj hasło</h2>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/auth/code" method="POST" autocomplete="off">
+                <section>
+                    <label for="email">E-mail*</label>
+                    <input type="email" placeholder="..." name="email" id="email" required autocomplete="off">
+                </section>
+
+                <button>Wygeneruj kod</button>
+            </form>
+
+            <div class="main-info">
+                <p>Wróć na stronę <a href="/auth/login">logowania</a></p>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

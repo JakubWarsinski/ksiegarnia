@@ -1,0 +1,43 @@
+<%- include('../partials/html', {
+    title : 'Kontakt',
+    styles : [ 'footer/main' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h1>Kontakt</h1>
+            
+            <p>Masz pytanie? Skontaktuj się z nami przez formularz poniżej.</p>
+
+            <form id="contactForm">
+                <section>
+                    <label for="name">Imię:</label>
+                    <input type="text" id="name" required />
+                </section>
+
+                <section>
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required />
+                </section>
+
+                <section>
+                    <label for="message">Wiadomość:</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </section>
+
+                <button type="submit">Wyślij</button>
+            </form>
+
+            <p>
+                Możesz też napisać do nas bezpośrednio: 
+                <a href="mailto:kontakt@mdk.pl">kontakt@mdk.pl</a>
+            </p>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

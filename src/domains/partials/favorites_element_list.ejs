@@ -1,0 +1,15 @@
+<% books.forEach(fav => { %>
+    <li class="list-element" data-index="<%= fav.index %>" data-book="<%= fav.id_ksiazki %>" data-storage="<%= fav.id_schowka %>">
+        <img src="/static/img/books/<%= fav.okladka %>">
+        
+        <section class="book-center">
+            <h3><%= fav.tytul %></h3>
+            <p class="price"><strong>Cena: </strong><%= fav.cena %> PLN</p>
+        </section>
+        
+        <section class="book-right">
+            <a href="/home/book/<%= fav.id_ksiazki %>" class="button">Szczegóły</a>
+            <a class="button" id="remove-button-<%= fav.index %>">Usuń</a>
+        </section>
+    </li>
+<% }) %>

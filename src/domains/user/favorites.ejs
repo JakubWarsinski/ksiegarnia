@@ -1,0 +1,57 @@
+<%- include('../partials/html', {
+    title : 'Ulubione',
+    styles : [ 'user/favorites' ],
+    scripts : [ 'renderListOfObjects', 'storage/remove_from_storage' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Ulubione książki</h2>
+
+            <div id="content" class="content"></div>
+
+            <div id='footer' class="order-footer">
+                <a href="/user/dashboard" class="button">Powrót</a>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script defer>
+        if (userData && userData.favAmount > 0) {
+            const $ = (tag) => document.createElement(tag);
+
+            const list = $('ul');
+            list.id = 'list';
+
+            const moreBooks = $('a');
+            moreBooks.innerText = 'Kolejne książki';
+            moreBooks.classList.add('button');
+            moreBooks.id = 'add-items';
+            moreBooks.dataset.type = 'favorites';
+
+            document.getElementById('content').appendChild(list);
+            document.getElementById('footer').appendChild(moreBooks);
+        } else {
+            setContentAsEmpty();
+        }
+
+        function setContentAsEmpty() {
+            document.getElementById('content').innerHTML = '';
+
+            const empty = document.createElement('p');
+            empty.classList.add('empty');
+            empty.innerText = 'Brak książek';
+            document.getElementById('content').appendChild(empty);
+
+            if (document.getElementById('add-items')) {
+                document.getElementById('add-items').remove();
+            }
+        }
+    </script>
+</body>
+</html>

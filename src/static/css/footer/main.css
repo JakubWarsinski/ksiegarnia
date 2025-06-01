@@ -1,0 +1,88 @@
+.container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    padding: 2em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+    margin: 6em 0;
+}
+
+.container h2 {
+    font-size: 1.9em;
+}
+
+.container ul {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.container ul li {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-width: 600px;
+}
+
+.container ul li h2 {
+    font-size: 1.3em;
+}
+
+.container ul li p {
+    font-style: italic;
+    opacity: 50%;
+}
+
+.container form {
+    display: flex;
+    gap: 2.5em;
+    flex-direction: column;
+}
+
+.container form section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.container form label {
+    font-size: 0.9em;
+    text-align: left;
+    font-weight: bold;
+}
+
+.container form input {
+    font-size: 0.9em;
+    padding: 0.5em 0.6em;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.container form input:focus {
+    outline: 1px solid #ff0000ff;
+}
+
+.container form button {
+    cursor: pointer;
+    padding: 0.6em 0;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    border-radius: 360px;
+    background-color: #ff0000ff;
+    color: white;
+    letter-spacing: 0.1em;
+    transition: all 0.1s ease;
+}
+
+.container form button:hover { 
+    transform: scale(1.05);
+    background-color: #ff9e0fff;
+}
+
+.container a {
+    color: #ff0000ff;
+}

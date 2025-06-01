@@ -1,0 +1,13 @@
+<% orders.forEach(order => { %>
+    <li id="list-li-<%= order.index %>">
+        <section class="order-left" data-id="<%= order.id_zamowienia %>">
+            <h3><b>nr:</b> <strong>#<%= order.id_zamowienia %></strong></h3>
+            <p><strong>Kwota: </strong><%= order.cena %> PLN</p>
+            <p class="date"><strong>Data: </strong><%= order.data_utworzenia %></p>
+        </section>
+
+        <section class="order-right">
+            <a href="/user/order/<%= order.id_zamowienia %>" class="button">Szczegóły</a>
+        </section>
+    </li>
+<% }) %>

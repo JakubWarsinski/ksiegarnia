@@ -1,0 +1,32 @@
+<%- include('../partials/html', {
+    title : 'Zamówienia',
+    styles : [ 'user/order_list' ],
+    scripts : [ 'renderListOfObjects' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Lista zamówień</h2>
+
+            <% if ( typeof order !== 'undefined' && order > 0) { %>
+                <ul id="list"></ul>
+            <% } else { %>
+                <p class="empty">Brak zamówień</p>
+            <% } %>
+
+            <div class="order-footer">
+                <a href="/user/dashboard" class="button">Powrót</a>
+
+                <% if ( typeof order !== 'undefined' && order > 0) { %>
+                    <a class="button" id="add-items" data-type="order_list">Kolejne zamówienia</a>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title><%= title %></title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="/static/img/website/icon.png" />
+    <link rel="stylesheet" href="/static/css/partials/html.css" />
+    <link rel="stylesheet" href="/static/css/partials/header.css" />
+    <link rel="stylesheet" href="/static/css/partials/footer.css" />
+
+    <% if (typeof styles !== 'undefined' && styles) { styles.forEach(function(style) { %>
+        <link rel="stylesheet" href="/static/css/<%= style %>.css" />
+    <% })}; %>
+
+    <script src="/static/js/header/search_book.js" defer></script>
+    <script src="/static/js/footer/add_newsletter.js" defer></script>
+
+    <% if (typeof scripts !== 'undefined' && scripts) { scripts.forEach(function(script) { %>
+        <script src="/static/js/<%= script %>.js" defer></script>
+    <% })}; %>
+</head>

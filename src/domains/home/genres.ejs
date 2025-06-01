@@ -1,0 +1,27 @@
+<%- include('../partials/html', {
+    title : 'Gatunki',
+    styles : [ 'home/sub_pages' ],
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Lista gatunków</h2>
+
+            <ul>
+                <% if ( typeof genres !== 'undefined' && genres ) { %>
+                    <% genres.forEach(function(genre) { %>
+                        <li><a href="/home/search?genre=<%= genre.id_gatunku %>"><%= genre.nazwa %></a></li>
+                    <% }); %>
+                <% } %>
+            </ul>
+
+            <a href="/home" class="button">Powrót</a>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

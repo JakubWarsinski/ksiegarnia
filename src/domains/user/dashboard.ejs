@@ -1,0 +1,26 @@
+<%- include('../partials/html', {
+    title : 'Reset Hasła',
+    styles : [ 'user/dashboard' ]
+}) %>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <main>
+        <div class="container">
+            <h2>Witaj <strong class="login"><%= user.login %></strong></h2>
+
+            <a href="/user/contact" class="dashboard-button">Dane Kontaktowe</a>
+            <a href="/user/order_list" class="dashboard-button">Zamówienia</a>
+            <a href="/auth/code" class="dashboard-button">Zmiana hasła</a>
+
+            <div class="buttons">
+                <a href="/home" class="button">Home</a>
+                <a href="/user/logout" class="button">Wyloguj</a>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

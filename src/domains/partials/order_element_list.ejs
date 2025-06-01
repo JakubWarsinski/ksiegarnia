@@ -1,0 +1,15 @@
+<% orders.forEach(order => { %>
+    <li id="list-li-<%= order.index %>">
+        <img src="/static/img/books/<%= order.okladka %>">
+        
+        <div class="order-left">
+            <h3><%= order.tytul %></h3>
+            <p><strong>Cena:</strong> <%= order.cena %> PLN</p>
+            <p><strong>Ilość:</strong> <%= order.ilosc %></p>
+        </div>
+
+        <section class="order-right">
+            <a href="/home/book/<%= order.id_ksiazki %>" class="button">Szczegóły</a>
+        </section>
+    </li>
+<% }) %>
